@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+    <script src="~/ClienteApp/Seguridad/Usuario/Busqueda.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaUsuarios">
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Búsqueda de Usuarios</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtUsuario">N°</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Usuario</div>
+                                <input type="text" class="form-control" id="txtUsuarioBus" ng-model="txtUsuarioBus" placeholder="">
+                            </div>
+
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="ddlTipoDocumentoBus">Tipo Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Tipo Documento</div>
+                                <select class="form-control" ng-model="ddlTipoDocumentoBus" ng-options="item as item.nombre for item in oListaTipoDocumento"></select>
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtDocumentoBus">Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Documento</div>
+                                <input type="text" class="form-control" id="txtDocumentoBus" ng-model="txtDocumentoBus" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtNombres">Nombres</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Nombres</div>
+                                <input type="text" class="form-control" id="txtNombresBus" ng-model="txtNombresBus" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApePaterno">Ape. Paterno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Paterno</div>
+                                <input type="text" class="form-control" id="txtApePaternoBus" ng-model="txtApePaternoBus" placeholder="Ape. Paterno">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApeMaterno">Ape. Materno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Materno</div>
+                                <input type="text" class="form-control" id="txtApeMaternoBus" ng-model="txtApeMaternoBus" placeholder="Ape. Materno">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="ddlTipoUsuarioBus">Tipo</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Tipo</div>
+                                <select class="form-control" ng-model="ddlTipoUsuarioBus" ng-options="item as item.nombre for item in oListaTipoUsuario"></select>
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <button type="submit" class="btn btn-primary " ng-click="btnBuscar()">Buscar</button>
+                            <button type="button" class="btn btn-success " ng-click="btnNuevo()">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resultado : {{cant_registros_busqueda}}</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <table id="taUsuarios" class="table table-responsive table-sm table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Nombres</th>
+                                        <th>Tipo</th>
+                                        <th>Activo</th>
+                                        <th>Admin</th>
+                                        <th>-</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Nombres</th>
+                                        <th>Tipo</th>
+                                        <th>Activo</th>
+                                        <th>Admin</th>
+                                        <th>-</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Edición-->
+    <div class="modal fade" id="moEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form name="frmUsuario">
+                @*<form>*@
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModal}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="ddlTipoDocumento" class="form-label">Tipo Documento</label>
+                                <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disabled"></select>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="txtDocumento" class="form-label">Documento</label>
+                                    <input type="text" class="form-control" name="txtDocumento" ng-model="txtDocumento" ng-disabled="txtDocumento_Disabled" ng-pattern="/^[0-9]{8,11}$/">
+                                    <span ng-show="frmUsuario.txtDocumento.$error.pattern" style="color:red">Documento no válido!!</span>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="txtNombre" class="form-label">Nombres</label>
+                                    <input type="text" class="form-control" name="txtNombres" ng-model="txtNombres" ng-disabled="txtNombre_Disabled" ng-pattern="/^[a-zA-Z]{3,50}$/">
+                                    <span ng-show="frmUsuario.txtNombres.$error.pattern" style="color:red">Nombres no válido!!</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="txtApellidoPaterno" class="form-label">Ape. Paterno</label>
+                                    <input type="text" class="form-control" name="txtApellidoPaterno" ng-model="txtApellidoPaterno" ng-disabled="txtApellidoPaterno_Disabled" ng-pattern="/^[a-zA-Z]{3,50}$/">
+                                    <span ng-show="frmUsuario.txtApellidoPaterno.$error.pattern" style="color:red">Apellido Paterno no válido!!</span>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="txtApellidoMaterno" class="form-label">Ape. Materno</label>
+                                    <input type="text" class="form-control" name="txtApellidoMaterno" ng-model="txtApellidoMaterno" ng-disabled="txtApellidoMaterno_Disabled" ng-pattern="/^[a-zA-Z]{3,50}$/">
+                                    <span ng-show="frmUsuario.txtApellidoMaterno.$error.pattern" style="color:red">Apellido Paterno no válido!!</span>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="ddlTipoUsuario" class="form-label">Tipo Usuario</label>
+                                <select class="form-control" ng-model="ddlTipoUsuario" ng-options="item as item.nombre for item in oListaTipoUsuario" ng-disabled="ddlTipoUsuario_Disabled"></select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="txtUsuario" class="form-label">Usuario</label>
+                                    <input type="text" class="form-control" name="txtUsuario" ng-model="txtUsuario" ng-disabled="txtUsuario_Disabled" ng-pattern="/^[a-zA-Z]{3,50}$/">
+                                    <span ng-show="frmUsuario.txtUsuario.$error.pattern" style="color:red">Usuario no válido!!</span>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="txtContrasenia" class="form-label">Constraseña</label>
+                                <input type="text" class="form-control" id="txtContrasenia" ng-model="txtContrasenia" ng-disabled="txtContrasenia_Disabled">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="validation-checkbox-group-1" ng-model="cbkActivo" ng-disabled="cbkActivo_Disabled">
+                                    <span class="form-check-label">Activo</span>
+                                </label>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="validation-checkbox-group-2" ng-model="cbkAdministrador" ng-disabled="cbkAdministrador_Disabled">
+                                    <span class="form-check-label">Administrador</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" ng-click="btnCerrar()">Salir</button>
+                        <button type="submit" class="btn btn-primary" ng-click="btnGuardar()">Guardar</button>
+                    </div>                    
+                @*</form>*@
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+

@@ -1,0 +1,1084 @@
+﻿
+@{
+    ViewData["Title"] = "RegistroVehicular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+
+
+@section Scripts {
+    @*<script src="~/js/chart.min.js"></script>
+    <script src="~/js/chart.js"></script>*@
+    <script src="https://unpkg.com/gojs@3.0.11/release/go.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://unpkg.com/create-gojs-kit@3.0.11/dist/extensions/CurvedLinkReshapingTool.js"></script>
+
+    <script src="https://www.chartjs.org/dist/master/chart.min.js"></script>
+    <script src="~/ClienteApp/Comercial/Solicitud/RegistroVehicular.js"></script>
+
+}
+
+<div class="container-fluid p-0" ng-controller="RegistroVehicular">
+
+    <h1 class="h3 mb-3">Registro Solicitud  {{vgTituloSolicitud}}</h1>
+
+    <div class="row">
+
+        <div class="col-md-3 col-xl-2">
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Solicitud</h5>
+                </div>
+
+                <div class="list-group list-group-flush" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#DatosCliente" role="tab" aria-selected="true">
+                        Datos Cliente
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Ofertas" role="tab" aria-selected="false" tabindex="-1">
+                        Ofertas
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Desembolso" role="tab" aria-selected="false" tabindex="-1">
+                        Desembolso
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Documentos" role="tab" aria-selected="false" tabindex="-1">
+                        Documentos
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Evaluacion" role="tab" aria-selected="false" tabindex="-1">
+                        Evaluación
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#SistemaFinanciero" role="tab" aria-selected="false" tabindex="-1">
+                        Sistema Financiero
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Historial" role="tab" aria-selected="false" tabindex="-1">
+                        Historial
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-xl-10">
+            <div class="tab-content">
+                <!--DATOS-->
+                <div class="tab-pane fade active show" id="DatosCliente" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Datos Cliente</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputFirstName" class="form-label">Tipo Documento</label>
+                                    <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtDocumento" class="form-label">Documento</label>
+                                    <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="Documento" ng-disabled="txtDocumento_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtApellidoPaterno" class="form-label">Apellido Paterno</label>
+                                    <input type="text" class="form-control" id="txtApellidoPaterno" ng-model="txtApellidoPaterno" placeholder="Ingrese apellido paterno" ng-disabled="txtApellidoPaterno_Disable">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtApellidoMaterno" class="form-label">Apellido Materno</label>
+                                    <input type="text" class="form-control" id="txtApellidoMaterno" ng-model="txtApellidoMaterno" placeholder="Ingrese apellido materno" ng-disabled="txtApellidoMaterno_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNombres" class="form-label">Nombres</label>
+                                    <input type="text" class="form-control" id="txtNombres" ng-model="txtNombres" placeholder="Ingrese nombres" ng-disabled="txtNombres_Disable">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                                    <input type="date" class="form-control" id="txtFechaNacimiento" ng-model="txtFechaNacimiento" placeholder="Ingrese fecha nacimiento" ng-disabled="txtFechaNacimiento_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlCategoriaLaboral" class="form-label">Categoría Laboral</label>
+                                    <select class="form-control mb-1" ng-model="ddlCategoriaLaboral" ng-options="item as item.nombre for item in oListaCategoriaLaboral" ng-disabled="ddlCategoriaLaboral_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtIngresoBruto" class="form-label">Ingreso Bruto</label>
+                                    <input type="text" class="form-control" id="txtIngresoBruto" ng-model="txtIngresoBruto" placeholder="ingrese ingreso bruto" ng-disabled="txtIngresoBruto_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaIngresoLaboral" class="form-label">Fecha Ing. Laboral</label>
+                                    <input type="date" class="form-control" id="txtFechaIngresoLaboral" ng-model="txtFechaIngresoLaboral" placeholder="Ingrese fecha nacimiento" ng-disabled="txtFechaIngresoLaboral_Disable">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTelefono" class="form-label">Telefono</label>
+                                    <input type="text" class="form-control" id="txtTelefono" ng-model="txtTelefono" placeholder="ingrese telefono principal" ng-disabled="txtTelefono_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtCorreo" class="form-label">Correo</label>
+                                    <input type="text" class="form-control" id="txtCorreo" ng-model="txtCorreo" placeholder="Ingrese correo principal" ng-disabled="txtCorreo_Disable">
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputCity" class="form-label">Departamento</label>
+                                    <select class="form-control mb-3" ng-model="ddlDepartamento" ng-options="item as item.nombre for item in oListaDepartamento" ng-change="btnCambioDepartamento()" ng-disabled="ddlDepartamento_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Provincia</label>
+                                    <select class="form-control mb-3" ng-model="ddlProvincia" ng-options="item as item.nombre for item in oListaProvincia" ng-change="btnCambioProvincia()" ng-disabled="ddlProvincia_Disable"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputZip" class="form-label">Distrito</label>
+                                    <select class="form-control mb-3" ng-model="ddlDistrito" ng-options="item as item.nombre for item in oListaDistrito" ng-disabled="ddlDistrito_Disable"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtDireccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="txtDireccion" ng-model="txtDireccion" placeholder="Ingrese dirección" ng-disabled="txtDireccion_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtReferencia" class="form-label">Referencia</label>
+                                    <input type="text" class="form-control" id="txtReferencia" ng-model="txtReferencia" placeholder="referencia de dirección" ng-disabled="txtReferencia_Disable">
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--DATOS-->
+
+                <!--OFERTAS-->
+                <div class="tab-pane fade" id="Ofertas" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Ofertas</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-2 col-md-6 col-auto">
+                                    <label class="visually-hidden" for="txtPrecioBien">Precio</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text w-25">Precio</div>
+                                        <input type="text" class="form-control" id="txtPrecioBien" ng-model="txtPrecioBien" placeholder="Precio Bien" ng-disabled="txtPrecioBien_Disable">
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-md-6 col-auto">
+                                    <label class="visually-hidden" for="txtInicialBien">Inicial</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text w-25">Inicial</div>
+                                        <input type="text" class="form-control" id="txtInicialBien" ng-model="txtInicialBien" placeholder="Precio Bien" ng-disabled="txtInicialBien_Disable">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-md-6 col-auto">
+                                    <label class="visually-hidden" for="txtPrecioBien">Seguro</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text w-25">Seguro</div>
+                                        <select class="form-control" ng-model="ddlSeguro" ng-options="item as item.nombre for item in oListaSeguro" ng-disabled="ddlSeguro_Disable" ng-change="btnCambioSeguro()"></select>
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-md-6 col-auto">
+                                    <label class="visually-hidden" for="txtTasaSeguro">Seguro %</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text w-25">Seguro %</div>
+                                        <input type="text" class="form-control" id="txtTasaSeguro" ng-model="txtTasaSeguro" placeholder="" ng-disabled="txtTasaSeguro_Disable">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-md-6 col-auto">
+                                    @*<label for="txtTEA" class="form-label">TEA (%)</label>
+                                    <input type="text" class="form-control" id="txtTEA" ng-model="txtTEA" placeholder="XX.00%" disabled>*@
+                                    <label class="visually-hidden" for="txtTEA">TEA (%)</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text w-25">TEA (%)</div>
+                                        <input type="text" class="form-control" id="txtTEA" ng-model="txtTEA" placeholder="TEA" ng-disabled="txtTEA_Disable">
+                                    </div>
+                                </div>
+                                <div class="mb-2 col-md-6">
+                                    <button type="submit" class="btn btn-primary" ng-click="btnSimularPlazos()" ng-disabled="btnSimularPlazos_Disable">Simular</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-4" ng-repeat="itemPlazo in oListaPlazosSolicitud">
+                                    <div id="dvPlazo_{{itemPlazo.plazo}}" class="card tilebox-one" ng-click="btnEscogerPlazo(itemPlazo.plazo)">
+                                        <div  class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0">Plazo {{itemPlazo.plazo}} Meses</h6>
+                                            <h2 class="m-b-20">S/. <span> {{itemPlazo.mto_cuota_total}}</span></h2>
+                                            <span class="badge bg-green"> Seguro  </span> <span class="text-muted"> {{itemPlazo.mto_cuota_seguro}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--OFERTAS-->
+
+                <!--DESEMBOLSO-->
+                <div class="tab-pane fade " id="Desembolso" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Desembolso</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlMarca" class="form-label">Marca</label>
+                                    <select class="form-control" ng-model="ddlMarca" ng-options="item as item.nombre for item in oListaMarca" ng-disabled="ddlMarca_Disable" ng-change="btnCambioMarca()"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlModelo" class="form-label">Modelo</label>
+                                    <select class="form-control" ng-model="ddlModelo" ng-options="item as item.nombre for item in oListaModelo" ng-disabled="ddlModelo_Disable"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlSegur_desemo" class="form-label">Seguro</label>
+                                    <select class="form-control" ng-model="ddlSeguro_desem" ng-options="item as item.nombre for item in oListaSeguro" disabled></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTasaSeguro_desem" class="form-label">Tasa Seguro %</label>
+                                    <input type="text" class="form-control" id="txtTasaSeguro_desem" ng-model="txtTasaSeguro_desem" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtPrecioBien_desem" class="form-label">Precio (S/)</label>
+                                    <input type="text" class="form-control" id="txtPrecioBien_desem" ng-model="txtPrecioBien_desem" placeholder="Ingrese Precio" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtInicialBien_desem" class="form-label">Inicial (S/)</label>
+                                    <input type="text" class="form-control" id="txtInicialBien_desem" ng-model="txtInicialBien_desem" placeholder="Ingrese Inicial" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFinanciar_desem" class="form-label">Financiamiento (S/)</label>
+                                    <input type="text" class="form-control" id="txtFinanciar_desem" ng-model="txtFinanciar_desem" placeholder="Ingrese Financiamiento" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTEA_desem" class="form-label">TEA (%)</label>
+                                    <input type="text" class="form-control" id="txtTEA_desem" ng-model="txtTEA_desem" placeholder="Ingrese Inicial" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlPlazo" class="form-label">Plazo</label>
+                                    <select class="form-control" ng-model="ddlPlazo" ng-options="item as item.nombre for item in oListaPlazo" disabled></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCuota_desem" class="form-label">Cuota (S/)</label>
+                                    <input type="text" class="form-control" id="txtCuota_desem" ng-model="txtCuota_desem" placeholder="" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaInicio_desem" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" id="txtFechaInicio_desem" ng-model="txtFechaInicio_desem" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Cronogrma</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taSolicitudes" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha Venc.</th>
+                                                <th>Días</th>
+                                                <th>Saldo</th>
+                                                <th>Capital</th>
+                                                <th>Interes</th>
+                                                <th>Desgravamen</th>
+                                                <th>Seguro</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha Venc.</th>
+                                                <th>Días</th>
+                                                <th>Saldo</th>
+                                                <th>Capital</th>
+                                                <th>Interes</th>
+                                                <th>Desgravamen</th>
+                                                <th>Seguro</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--DESEMBOLSO-->
+
+                <!--DOCUMENTOS-->
+                <div class="tab-pane fade" id="Documentos" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Lista de Documentos</h5>
+                            <button type="submit" class="btn btn-info" ng-click="btnNuevoDocumento()" ng-disabled="btnNuevoDocumento_Disable">Nuevo</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taSolicitudDocumentos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>                                                
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>tipo_documento</th>
+                                                <th>Estado</th>
+                                                <th>---</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nombre</th>
+                                                <th>tipo_documento</th>
+                                                <th>Estado</th>
+                                                <th>---</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Descarga Documentos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Carta Aprobación<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Contrato<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Cronograma<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Resolución Validador</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlResultadoValidacion" class="form-label">Resultado</label>
+                                    <select class="form-control" ng-model="ddlResultadoValidacion" ng-options="item as item.nombre for item in oListaResultadoValidacion" ng-disabled="ddlResultadoValidacion_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlMotivoValidacion" class="form-label">Motivo</label>
+                                    <select class="form-control" ng-model="ddlMotivoValidacion" ng-options="item as item.nombre for item in oListaMotivoValidacion" ng-disabled="ddlMotivoValidacion_Disable"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtComentarioValidacion" class="form-label">Comentario</label>
+                                    <input type="text" class="form-control" id="txtComentarioValidacion" ng-model="txtComentarioValidacion" placeholder="" ng-disabled="txtComentarioValidacion_Disable">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaUltimaValidacion" class="form-label">Fecha Ult. Validación</label>
+                                    <input type="text" class="form-control" id="txtFechaUltimaValidacion" ng-model="txtFechaUltimaValidacion" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Resolución Validador - Histórico</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taHistoricoValidacion" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Validador</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Validador</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--DOCUMENTOS-->
+
+                <!--EVALUACION-->
+                <div class="tab-pane fade" id="Evaluacion" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Ratios</h5>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRMI" class="form-label">RMI</label>
+                                    <input type="text" class="form-control" id="txtRMI" ng-model="txtRMI" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRCI" class="form-label">RCI</label>
+                                    <input type="text" class="form-control" id="txtRCI" ng-model="txtRCI" placeholder="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRSFI" class="form-label">RSFI</label>
+                                    <input type="text" class="form-control" id="txtRSFI" ng-model="txtRSFI" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRTI" class="form-label">RTI</label>
+                                    <input type="text" class="form-control" id="txtRTI" ng-model="txtRTI" placeholder="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCargaInterna" class="form-label">Carga Interna</label>
+                                    <input type="text" class="form-control" id="txtCargaInterna" ng-model="txtCargaInterna" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCargaExterna" class="form-label">Carga Externa</label>
+                                    <input type="text" class="form-control" id="txtCargaExterna" ng-model="txtCargaExterna" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Solicitudes Mes Actual</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudes" class="form-label"># Solicitudes</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudes" ng-model="txtNumeroSolicitudes" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudesAPR" class="form-label"># Solicitudes APR</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudesAPR" ng-model="txtNumeroSolicitudesAPR" placeholder="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                   
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudesRCH" class="form-label"># Solicitudes RCH</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudesRCH" ng-model="txtNumeroSolicitudesRCH" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Operaciones Internas</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtOperaciones" class="form-label"># Operaciones</label>
+                                    <input type="text" class="form-control" id="txtOperaciones" ng-model="txtOperaciones" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtAtrasoActual" class="form-label">Atraso Actual</label>
+                                    <input type="text" class="form-control" id="txtAtrasoActual" ng-model="txtAtrasoActual" placeholder="" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtDeudaInterna" class="form-label">Deuda (S/.)</label>
+                                    <input type="text" class="form-control" id="txtDeudaInterna" ng-model="txtDeudaInterna" placeholder="" disabled>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtUltimoIngreso" class="form-label">Ult. Ingreso (S/.)</label>
+                                    <input type="text" class="form-control" id="txtUltimoIngreso" ng-model="txtUltimoIngreso" placeholder="" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Resolución Analista</h5>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlResultadoEvaluacion" class="form-label">Resultado</label>
+                                    <select class="form-control" ng-model="ddlResultadoEvaluacion" ng-options="item as item.nombre for item in oListaResultadoEvaluacion" ng-disabled="ddlResultadoEvaluacion_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlMotivoEvaluacion" class="form-label">Motivo</label>
+                                    <select class="form-control" ng-model="ddlMotivoEvaluacion" ng-options="item as item.nombre for item in oListaMotivoEvaluacion" ng-disabled="ddlMotivoEvaluacion_Disable"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtComentarioEvaluacion" class="form-label">Comentario</label>
+                                    <input type="text" class="form-control" id="txtComentarioEvaluacion" ng-model="txtComentarioEvaluacion" placeholder="" ng-disabled="txtComentarioEvaluacion_Disable">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaUltimaEvaluacion" class="form-label">Fecha Ult. Evaluación</label>
+                                    <input type="text" class="form-control" id="txtFechaUltimaEvaluacion" ng-model="txtFechaUltimaEvaluacion" placeholder="" disabled>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Resolución Analista - Histórico</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taHistoricoEvaluacion" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Analista</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Analista</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--EVALUACION-->
+
+                <!--SISTEMA FINANCIERO-->
+                <div class="tab-pane fade" id="SistemaFinanciero" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Indicadores</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h6 class="card-title">Ult % Normal</h6>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el % de clasificación en Normal que ha tenido el cliente en el último mes">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfUltPorcNormal" class="mt-0 mb-1 ql-color-green">{{vUltPorcNormal | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h6 class="card-title">Calificación</h6>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra la última calificación máxima que el cliente ha tenido">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfUltCalificacion" class="mt-0 mb-1">{{vUltCalificacion}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h6 class="card-title">Var Deuda (t-1)</h6>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el % de variación del total de la deuda de este mes con hace 1 meses">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfVarDeudaT1" class="mt-0 mb-1">{{vVarDeudaT1 | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h6 class="card-title">Var Deuda (t-2)</h6>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el % de variación del total de la deuda de este mes con hace 2 meses">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfVarDeudaT2" class="mt-0 mb-1">{{vVarDeudaT2 | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Var Linea Disponible (t-1)</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el % de variación de la linea disponible entre este mes y el antetior">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfVarLineaDisponibleT1" class="mt-0 mb-1">{{vVarLineaDisponibleT1  | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Carga Actual</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el monto de la cuota mensual que el cliente pagó el último mes">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfCargaActual" class="mt-0 mb-1">{{vCargaActual | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">% Var Carga T1</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el % de variación de la cuota mensual entre la del mes y el mes anterior">
+	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hVarfCargaActualT1" class="mt-0 mb-1">{{vPorcVarCarga | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Carga (t-1)</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra el monto de la cuota mensual que el cliente pagó el mes anterior">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-0 mb-1">{{vCargaT1 | number : 2}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Dias Atraso Max 1M</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra los días de atraso que tenía el cliente el mes anterior">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfDiasAtraso1M" class="mt-0 mb-1">{{vDiasAtraso1M}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Dias Atraso Max 6M</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra los días de atraso que tenía el cliente hace 6 meses">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfDiasAtraso6M" class="mt-0 mb-1">{{vDiasAtraso6M}}<span class="text-muted"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    <div class="card flex-fill bg-light">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Dias Atraso Max 12M</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat stat-sm" style="">
+                                                        @*<i class="fa-solid fa-dollar-sign align-middle"></i>*@
+                                                        <a tabindex="0" role="button" data-bs-toggle="popover" title="Descripción" data-bs-content="Muestra los días de atraso que tenía el cliente hace 12 meses">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="help-circle" class="lucide lucide-help-circle align-middle me-2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 id="hfDiasAtraso12M" class="mt-0 mb-1">{{vDiasAtraso12M}}<span class="text-muted"></span></h4>
+
+                                            @*<div class="mb-0">
+                                                <span class="badge badge-subtle-success">+6.15%</span>
+                                                <span class="text-muted">Since last week</span>
+                                            </div>*@
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-3 col-xxl d-flex">
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Evolución de Deudas</h5>
+                        </div>
+                        <div class="card-body bg-light">
+                           <div class="row">
+                                <canvas id="mcDeudas" style="height:20vh;width: 95%;"></canvas>
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Evolución de % Clasificación</h5>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <canvas id="mcClasificacion" style="height:10vh;width: 95%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Evolución de Clasificación & Empresas </h5>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <canvas id="mcClasificacionEmpresas" style="height:10vh;width: 95%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Evolución de  Carga Mensual</h5>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <canvas id="mcCargaMensual" style="height:10vh;width: 95%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--SISTEMA FINANCIERO-->
+
+                <!--HISTORIAL-->
+                <div class="tab-pane fade" id="Historial" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Historial de Flujo</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="myDiagramDiv" style="background-color: whitesmoke; border: solid 1px black; width: 100%; height: 400px"></div>
+                            @*<div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taDocumentos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Etapa Inicial</th>
+                                                <th>Etapa Final</th>
+                                                <th>Resultado</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Etapa Inicial</th>
+                                                <th>Etapa Final</th>
+                                                <th>Resultado</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>*@
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--HISTORIAL-->
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Acciones</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-3">
+                                
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <button type="submit" class="btn btn-success" ng-click="btnGuardar()" ng-disabled="btnGuardar_Disable">Grabar</button>
+                                <button type="submit" class="btn btn-primary" ng-click="btnAvanzar()" ng-disabled="btnAvanzar_Disable">Avanzar</button>
+                                <button type="submit" class="btn btn-danger" ng-click="btnAnular()" ng-disabled="btnAnular_Disable">Anular</button>
+                                <button type="submit" class="btn btn-info" ng-click="btnReiniciar()" ng-disabled="btnReiniciar_Disable">Reiniciar</button>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Modal Contratos-->
+    <div class="modal fade" id="moDocumentos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalContrato}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="mb-2">
+                                <label for="txtTipoDocumentoAdj" class="form-label">Tipo Documento</label>
+                                <select class="form-control" ng-model="ddlTipoDocumentoAdj" ng-options="item as item.nombre for item in oListaTipoDocumentoAdjunto" ng-disabled="ddlTipoDocumentoAdj_Disable"></select>
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtNombreDocumentoAdj" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="txtNombreDocumentoAdj" ng-model="txtNombreDocumentoAdj" ng-disabled="txtNombreDocumentoAdj_Disable">
+                            </div>
+                            <div class="mb-2">
+                                <label for="txtDescripcionDocumentoAdj" class="form-label">Comentario</label>
+                                <input type="text" class="form-control" id="txtDescripcionDocumentoAdj" ng-model="txtDescripcionDocumentoAdj" ng-disabled="txtDescripcionDocumentoAdj_Disable">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- File Upload -->
+                            <form action="/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews"
+                                  data-upload-preview-template="#uploadPreviewTemplate">
+                                <div class="fallback">
+                                    <input id="fiAdjunto" name="fiAdjunto" type="file" ng-model="fiAdjunto" ng-change="GrabarAdjunto()" />
+                                </div>
+
+                                @*<div class="dz-message needsclick">
+                                    <i class="h1 text-muted ri-upload-cloud-2-line"></i>
+                                    <h3>Drop files here or click to upload.</h3>
+                                    <span class="text-muted font-13">
+                                        (This is just a demo dropzone. Selected files are
+                                        <strong>not</strong> actually uploaded.)
+                                    </span>
+                                </div>*@
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" ng-click="btnCerrar()">Salir</button>
+                        <button type="submit" class="btn btn-primary" ng-click="GrabarAdjunto()">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

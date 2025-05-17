@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Whatsapp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid p-0">
+
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Whatsapp</h2>
+                    <h6 class="card-subtitle text-muted">configuración de texto para el envío de mensajes por Whatsapp</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Personalizar el envío de correo para la gestión de preventiva</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Escribe aquí el texto a ser enviado, es importante no cambiar los datos que están dentro de los corchetes [XXXXXXXXX], ya que estos serán reemplazados por los valores de los contratos</label>
+                            <textarea class="form-control" placeholder="Textarea" rows="1" style="height: 77px;"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Personalizar el envío de correo para la gestión de cobranza</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Escribe aquí el texto a ser enviado, es importante no cambiar los datos que están dentro de los corchetes [XXXXXXXXX], ya que estos serán reemplazados por los valores de los contratos</label>
+                            <textarea class="form-control" placeholder="Textarea" rows="1" style="height: 77px;"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Personalizar el envío de correo para los pagos realizados</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Escribe aquí el texto a ser enviado, es importante no cambiar los datos que están dentro de los corchetes [XXXXXXXXX], ya que estos serán reemplazados por los valores de los contratos</label>
+                            <textarea class="form-control" placeholder="Textarea" rows="1" style="height: 77px;"></textarea>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

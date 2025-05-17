@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/ClienteApp/Cobranza/Asignacion/Busqueda.js"></script>
+}
+
+
+    <div class="container-fluid p-0" ng-controller="BusquedaAsignaciones">
+
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Búsqueda de Asignaciones</h5>
+                <h6 class="card-subtitle text-muted">Ingrese uno de los datos para filtrar el resultado o haga clic en el botón buscar directamente para mostrar todos los registros</h6>
+            </div>
+            <div class="card-body">
+                <form class="row row-cols-md-auto align-items-center">
+                    <div class="col-8">
+                        <label class="sr-only" for="inlineFormInputName2">Documento</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Documento Cliente">
+                    </div>
+
+                    <div class="col-8">
+                        <label class="sr-only" for="inlineFormInputName2">Documento</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Documento Gestor">
+                    </div>
+
+                    <div class="col-8">
+                        <label class="sr-only" for="inlineFormInputName2">Documento</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Fecha Asign. Inicial">
+                    </div>
+
+                    <div class="col-8">
+                        <label class="sr-only" for="inlineFormInputName2">Documento</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Fecha Asign. Final">
+                    </div>
+
+                    @*<div class="col-12">
+                        <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-text"></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Código">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="sr-only" for="inlineFormInputGroupUsername2">Apellidos o Nombres</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-text"></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Apellidos o Nombres">
+                        </div>
+                    </div>*@
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Resultados</h5>
+                <button type="submit" class="btn btn-primary mb-2" ng-click="btnNuevaAsignacion()">Nuevo</button>
+            </div>
+            <div class="card-body">
+                <table id="taAsignaciones" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo Doc</th>
+                            <th>Documento</th>
+                            <th>Cliente</th>
+                            <th>Contrato</th>
+                            <th>Financiamiento</th>
+                            <th>Saldo</th>
+                            <th>Fecha Asig.</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo Doc</th>
+                            <th>Documento</th>
+                            <th>Cliente</th>
+                            <th>Contrato</th>
+                            <th>Financiamiento</th>
+                            <th>Saldo</th>
+                            <th>Fecha Asig.</th>
+                            <th>Estado</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Modal Contratos-->
+        <div class="modal fade" id="moAsignacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalAsignacion}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="inputLastName" class="form-label">Fecha Asignación</label>
+                                <input type="datetime" class="form-control" id="inputLastName" placeholder="Ingrese fecha activación">
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="inputFirstName" class="form-label">Tipo Doc</label>
+                                <select class="form-control" ng-model="ddlMoneda" ng-options="item as item.nombre for item in oListaMoneda"></select>
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="inputLastName" class="form-label">Documento</label>
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Ingrese código">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="inputFirstName" class="form-label">Apellido Paterno</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Ingrese precio bien">
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="inputLastName" class="form-label">Apellido Materno</label>
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Ingrese inicial bien">
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="inputFirstName" class="form-label">Nombres</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Ingrese % inicial">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="inputFirstName" class="form-label">Financiamiento</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Ingrese monto financiamiento">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Plazo</label>
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Ingrese plazo crédito">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputFirstName" class="form-label">TEA</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Ingrese TEA">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="inputFirstName" class="form-label">Primer Vencimiento</label>
+                                <input type="date" class="form-control" id="inputFirstName" placeholder="Ingrese fecha primer vencimiento">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Vencimiento</label>
+                                <input type="date" class="form-control" id="inputLastName" placeholder="Ingrese fecha vencimiento del crédito">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputFirstName" class="form-label">Saldo</label>
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="Ingrese monto saldo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Cuotas Pagadas</label>
+                                <input type="number" class="form-control" id="inputLastName" placeholder="Ingrese cuotas pagadas">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputFirstName" class="form-label">Cuotas Pendientes</label>
+                                <input type="number" class="form-control" id="inputFirstName" placeholder="Ingrese cuotas pendientes">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Cuotas Atrazadas</label>
+                                <input type="number" class="form-control" id="inputLastName" placeholder="Ingrese cuotas atrasadas">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Estado Cliente</label>
+                                <select class="form-control" ng-model="ddlEstadoOperacion" ng-options="item as item.nombre for item in oListaEstadoOperacion"></select>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="inputLastName" class="form-label">Estado Gestión</label>
+                                <select class="form-control" ng-model="ddlEstadoOperacion" ng-options="item as item.nombre for item in oListaEstadoOperacion"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="inputLastName" class="form-label">Motivo</label>
+                                <textarea class="form-control" rows="2" placeholder="Textarea"></textarea>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="inputLastName" class="form-label">Comentario</label>
+                                <textarea class="form-control" rows="2" placeholder="Textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+

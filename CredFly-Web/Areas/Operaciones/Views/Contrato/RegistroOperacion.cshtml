@@ -1,0 +1,512 @@
+﻿
+@{
+    ViewData["Title"] = "RegistroOperacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Comercial/Solicitud/RegistroVehicular.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="RegistroVehicular">
+
+    <h1 class="h3 mb-3">Registro Operación</h1>
+
+    <div class="row">
+        <div class="col-md-3 col-xl-2">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Solicitud</h5>
+                </div>
+                <div class="list-group list-group-flush" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#DatosCliente" role="tab" aria-selected="true">
+                        Datos Cliente
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Desembolso" role="tab" aria-selected="false" tabindex="-1">
+                        Desembolso
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Documentos" role="tab" aria-selected="false" tabindex="-1">
+                        Documentos
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Evaluacion" role="tab" aria-selected="false" tabindex="-1">
+                        Evaluación
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-xl-10">
+            <div class="tab-content">
+                <!--DATOS-->
+                <div class="tab-pane fade active show" id="DatosCliente" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Datos Cliente</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputFirstName" class="form-label">Tipo Documento</label>
+                                    <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtDocumento" class="form-label">Documento</label>
+                                    <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="Documento" ng-disabled="txtDocumento_Disable">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtApellidoPaterno" class="form-label">Apellido Paterno</label>
+                                    <input type="text" class="form-control" id="txtApellidoPaterno" ng-model="txtApellidoPaterno" placeholder="Ingrese apellido paterno">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtApellidoMaterno" class="form-label">Apellido Materno</label>
+                                    <input type="text" class="form-control" id="txtApellidoMaterno" ng-model="txtApellidoMaterno" placeholder="Ingrese apellido materno">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNombres" class="form-label">Nombres</label>
+                                    <input type="text" class="form-control" id="txtNombres" ng-model="txtNombres" placeholder="Ingrese nombres">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                                    <input type="date" class="form-control" id="txtFechaNacimiento" ng-model="txtFechaNacimiento" placeholder="Ingrese fecha nacimiento">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlCategoriaLaboral" class="form-label">Categoría Laboral</label>
+                                    <select class="form-control mb-1" ng-model="ddlCategoriaLaboral" ng-options="item as item.nombre for item in oListaCategoriaLaboral"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtIngresoBruto" class="form-label">Ingreso Bruto</label>
+                                    <input type="text" class="form-control" id="txtIngresoBruto" ng-model="txtIngresoBruto" placeholder="ingrese ingreso bruto">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaIngresoLaboral" class="form-label">Fecha Ing. Laboral</label>
+                                    <input type="date" class="form-control" id="txtFechaIngresoLaboral" ng-model="txtFechaIngresoLaboral" placeholder="Ingrese fecha nacimiento">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTelefono" class="form-label">Telefono</label>
+                                    <input type="text" class="form-control" id="txtTelefono" ng-model="txtTelefono" placeholder="ingrese telefono principal">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtCorreo" class="form-label">Correo</label>
+                                    <input type="text" class="form-control" id="txtCorreo" ng-model="txtCorreo" placeholder="Ingrese correo principal">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputCity" class="form-label">Departamento</label>
+                                    <select class="form-control mb-3" ng-model="ddlDepartamento" ng-options="item as item.nombre for item in oListaDepartamento" ng-change="btnCargarProvincia()"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Provincia</label>
+                                    <select class="form-control mb-3" ng-model="ddlProvincia" ng-options="item as item.nombre for item in oListaProvincia" ng-change="btnCargarDistrito()"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputZip" class="form-label">Distrito</label>
+                                    <select class="form-control mb-3" ng-model="ddlDistrito" ng-options="item as item.nombre for item in oListaDistrito"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtDireccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="txtDireccion" ng-model="txtDireccion" placeholder="Ingrese dirección">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-12">
+                                    <label for="txtReferencia" class="form-label">Referencia</label>
+                                    <input type="text" class="form-control" id="txtReferencia" ng-model="txtReferencia" placeholder="referencia de dirección">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" ng-click="btnGuardar()">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                <!--DATOS-->
+                <!--DESEMBOLSO-->
+                <div class="tab-pane fade " id="Desembolso" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Desembolso</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlMarca" class="form-label">Marca</label>
+                                    <select class="form-control" ng-model="ddlMarca" ng-options="item as item.nombre for item in oListaMarca" ng-disabled="ddlMarca_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlModelo" class="form-label">Modelo</label>
+                                    <select class="form-control" ng-model="ddlModelo" ng-options="item as item.nombre for item in oListaModelo" ng-disabled="ddlModelo_Disable"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlSeguro" class="form-label">Seguro</label>
+                                    <select class="form-control" ng-model="ddlSeguro" ng-options="item as item.nombre for item in oListaSeguro" ng-disabled="ddlSeguro_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTasaSeguro" class="form-label">Tasa Seguro %</label>
+                                    <input type="text" class="form-control" id="txtTasaSeguro" ng-model="txtTasaSeguro" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtPrecio" class="form-label">Precio (S/)</label>
+                                    <input type="text" class="form-control" id="txtPrecio" ng-model="txtPrecio" placeholder="Ingrese Precio">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtInicial" class="form-label">Inicial (S/)</label>
+                                    <input type="date" class="form-control" id="txtInicial" ng-model="txtInicial" placeholder="Ingrese Inicial">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFinanciar" class="form-label">Financiamiento (S/)</label>
+                                    <input type="text" class="form-control" id="txtFinanciar" ng-model="txtFinanciar" placeholder="Ingrese Financiamiento">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtTEA" class="form-label">TEA (%)</label>
+                                    <input type="date" class="form-control" id="txtTEA" ng-model="txtTEA" placeholder="Ingrese Inicial">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlPlazo" class="form-label">Plazo</label>
+                                    <select class="form-control" ng-model="ddlPlazo" ng-options="item as item.nombre for item in oListaPlazo" ng-disabled="ddlPlazo_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCuota" class="form-label">Cuota (S/)</label>
+                                    <input type="text" class="form-control" id="txtCuota" ng-model="txtCuota" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaInicio" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" id="txtFechaInicio" ng-model="txtFechaInicio" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <button type="submit" class="btn btn-primary" ng-click="btnRecalcularCronograma()">Recalcular Cronograma</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Cronogrma</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taSolicitudes" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha Venc.</th>
+                                                <th>Días</th>
+                                                <th>Saldo</th>
+                                                <th>Capital</th>
+                                                <th>Interes</th>
+                                                <th>Desgravamen</th>
+                                                <th>Seguro</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Fecha Venc.</th>
+                                                <th>Días</th>
+                                                <th>Saldo</th>
+                                                <th>Capital</th>
+                                                <th>Interes</th>
+                                                <th>Desgravamen</th>
+                                                <th>Seguro</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--DESEMBOLSO-->
+                <!--DOCUMENTOS-->
+                <div class="tab-pane fade" id="Documentos" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Lista de Documentos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taDocumentos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Nombre</th>
+                                                <th>Link</th>
+                                                <th>Estado</th>
+                                                <th>---</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Nombre</th>
+                                                <th>Link</th>
+                                                <th>Estado</th>
+                                                <th>---</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Descarga Documentos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Carta Aprobación<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Contrato<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-4">
+                                    <div class="card tilebox-one">
+                                        <div class="card-body">
+                                            <i class="ri-archive-line float-end text-muted"></i>
+                                            <h6 class="text-muted text-uppercase mt-0"></h6>
+                                            <h2 class="m-b-20">Cronograma<span></span></h2>
+                                            @*<span class="badge bg-danger"> -29% </span> <span class="text-muted">TEA 35%</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--DOCUMENTOS-->
+                <!--EVALUACION-->
+                <div class="tab-pane fade" id="Evaluacion" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Ratios</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRMI" class="form-label">RMI</label>
+                                    <input type="text" class="form-control" id="txtRMI" ng-model="txtRMI" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRCI" class="form-label">RCI</label>
+                                    <input type="text" class="form-control" id="txtRCI" ng-model="txtRCI" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRSFI" class="form-label">RSFI</label>
+                                    <input type="text" class="form-control" id="txtRSFI" ng-model="txtRSFI" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtRTI" class="form-label">RTI</label>
+                                    <input type="text" class="form-control" id="txtRTI" ng-model="txtRTI" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCargaInterna" class="form-label">Carga Interna</label>
+                                    <input type="text" class="form-control" id="txtCargaInterna" ng-model="txtCargaInterna" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtCargaExterna" class="form-label">Carga Externa</label>
+                                    <input type="text" class="form-control" id="txtCargaExterna" ng-model="txtCargaExterna" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Solicitudes Mes Actual</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudes" class="form-label"># Solicitudes</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudes" ng-model="txtNumeroSolicitudes" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudesAPR" class="form-label"># Solicitudes APR</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudesAPR" ng-model="txtNumeroSolicitudesAPR" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtNumeroSolicitudesRCH" class="form-label"># Solicitudes RCH</label>
+                                    <input type="text" class="form-control" id="txtNumeroSolicitudesRCH" ng-model="txtNumeroSolicitudesRCH" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Operaciones Internas</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtOperaciones" class="form-label"># Operaciones</label>
+                                    <input type="text" class="form-control" id="txtOperaciones" ng-model="txtOperaciones" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtAtrasoActual" class="form-label">Atraso Actual</label>
+                                    <input type="text" class="form-control" id="txtAtrasoActual" ng-model="txtAtrasoActual" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtDeudaInterna" class="form-label">Deuda (S/.)</label>
+                                    <input type="text" class="form-control" id="txtDeudaInterna" ng-model="txtDeudaInterna" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtUltimoIngreso" class="form-label">Ult. Ingreso (S/.)</label>
+                                    <input type="text" class="form-control" id="txtUltimoIngreso" ng-model="txtUltimoIngreso" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Resolución Analista</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlResultado" class="form-label">Resultado</label>
+                                    <select class="form-control" ng-model="ddlResultado" ng-options="item as item.nombre for item in oListaResultado" ng-disabled="ddlResultado_Disable"></select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="ddlMotivo" class="form-label">Motivo</label>
+                                    <select class="form-control" ng-model="ddlMotivo" ng-options="item as item.nombre for item in oListaMotivo" ng-disabled="ddlMotivo_Disable"></select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtComentario" class="form-label">Comentario</label>
+                                    <input type="date" class="form-control" id="txtComentario" ng-model="txtComentario" placeholder="">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="txtFechaInicio" class="form-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" id="txtFechaInicio" ng-model="txtFechaInicio" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taHistorialEvaluaciones" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Analista</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Fecha</th>
+                                                <th>Resultado</th>
+                                                <th>Motivo</th>
+                                                <th>Analista</th>
+                                                <th>Comentario</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--EVALUACION-->
+                <!--ACCIONES-->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Acciones</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-md-3">
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <button type="submit" class="btn btn-success" ng-click="btnGrabar()">Grabar</button>
+                                <button type="submit" class="btn btn-primary" ng-click="btnActivar()">Activar</button>
+                                <button type="submit" class="btn btn-danger" ng-click="btnAnular()">Anular</button>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--ACCIONES-->
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

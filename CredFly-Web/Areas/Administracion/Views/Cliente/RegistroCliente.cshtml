@@ -1,0 +1,948 @@
+﻿@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Administracion/Cliente/RegistroCliente.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="RegistroCliente">
+
+    <h1 class="h3 mb-3">Registro Cliente</h1>
+
+    <div class="row">
+        <div class="col-md-3 col-xl-2">
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Perfil Cliente</h5>
+                </div>
+
+                <div class="list-group list-group-flush" role="tablist">
+                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab" aria-selected="true">
+                        Datos
+                    </a>
+                    @*<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab" aria-selected="false" tabindex="-1">
+                    Password
+                    </a>*@
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Contratos" role="tab" aria-selected="false" tabindex="-1">
+                        Contratos
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Telefonos" role="tab" aria-selected="false" tabindex="-1">
+                        Telefonos
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Correos" role="tab" aria-selected="false" tabindex="-1">
+                        Correos
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Direcciones" role="tab" aria-selected="false" tabindex="-1">
+                        Direcciones
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Gestiones" role="tab" aria-selected="false" tabindex="-1">
+                        Gestiones
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#NotificacionesAutomaticas" role="tab" aria-selected="false" tabindex="-1">
+                        Notificaciones Automáticas
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#Configuraciones" role="tab" aria-selected="false" tabindex="-1">
+                        Configuración
+                    </a>
+                    @*<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#" role="tab" aria-selected="false" tabindex="-1">
+                    Your data
+                    </a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#" role="tab" aria-selected="false" tabindex="-1">
+                    Delete account
+                    </a>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-xl-10">
+            <div class="tab-content">
+                <!--DATOS-->
+                <div class="tab-pane fade active show" id="account" role="tabpanel">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Datos Personales</h5>
+                        </div>
+                        <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputFirstName" class="form-label">Tipo Documento</label>
+                                        <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disable"></select>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputLastName" class="form-label">Documento</label>
+                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtDocumento" placeholder="Documento" ng-disabled="txtDocumento_Disable">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputFirstName" class="form-label">Apellido Paterno</label>
+                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtApellidoPaterno" placeholder="Ingrese apellido paterno">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputLastName" class="form-label">Apellido Materno</label>
+                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtApellidoMaterno" placeholder="Ingrese apellido materno">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputFirstName" class="form-label">Nombres</label>
+                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtNombres" placeholder="Ingrese nombres">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputLastName" class="form-label">Fecha Nacimiento</label>
+                                        <input type="date" class="form-control" id="inputLastName" ng-model="txtFechaNacimiento" placeholder="Ingrese fecha nacimiento">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputFirstName" class="form-label">Genero</label>
+                                        <select class="form-control mb-1" ng-model="ddlGenero" ng-options="item as item.nombre for item in oListaGenero"></select>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputLastName" class="form-label">Estado Civil</label>
+                                        <select class="form-control mb-1" ng-model="ddlEstadoCivil" ng-options="item as item.nombre for item in oListaEstadoCivil"></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputFirstName" class="form-label">Telefono Principal</label>
+                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtTelefonoPrincipal" placeholder="ingrese telefono principal">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="inputLastName" class="form-label">Correo Principal</label>
+                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtCorreoPrincipal" placeholder="Ingrese correo principal">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputAddress2" class="form-label">Dirección Principal</label>
+                                    <input type="text" class="form-control" id="inputAddress2" ng-model="txtDireccionPrincipal" placeholder="Ingrese su dirección completa">
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-md-4">
+                                        <label for="inputCity" class="form-label">Departamento</label>
+                                        <select class="form-control mb-3" ng-model="ddlDepartamento" ng-options="item as item.nombre for item in oListaDepartamento" ng-change="btnCargarProvincia()"></select>
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="inputState" class="form-label">Provincia</label>
+                                        <select class="form-control mb-3" ng-model="ddlProvincia" ng-options="item as item.nombre for item in oListaProvincia" ng-change="btnCargarDistrito()"></select>
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="inputZip" class="form-label">Distrito</label>
+                                        <select class="form-control mb-3" ng-model="ddlDistrito" ng-options="item as item.nombre for item in oListaDistrito"></select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" ng-click="btnGuardar()" >Guardar</button>
+                        </div>
+                    </div>
+                </div>
+                <!--DATOS-->
+
+                <!--CONTRATOS-->
+                <div class="tab-pane fade" id="Contratos" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Contratos del Cliente</h5>
+                            @*<button class="btn btn-pill btn-primary" ng-click="btnNuevoContrato()">Nuevo</button>*@
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-9">
+                                    <table id="taContratos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Contrato</th>
+                                                <th>Precio</th>
+                                                <th>Inicial</th>
+                                                <th>Financiado</th>
+                                                <th>Plazo</th>
+                                                <th>TEA</th>
+                                                <th>Saldo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Contrato</th>
+                                                <th>Precio</th>
+                                                <th>Inicial</th>
+                                                <th>Financiado</th>
+                                                <th>Plazo</th>
+                                                <th>TEA</th>
+                                                <th>Saldo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            @*<div class="card-actions float-end">
+                                            <div class="dropdown position-relative">
+                                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                            </div>
+                                            </div>*@
+                                            <h5 class="card-title mb-0">{{vgContratoSelec}}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row g-0">
+                                                @*<div class="col-sm-3 col-xl-12 col-xxl-3 text-center">
+                                                <img src="img/avatars/avatar-3.jpg" width="64" height="64" class="rounded-circle mt-2" alt="Angelica Ramos">
+                                                </div>*@
+                                                <div class="col-sm-9 col-xl-12 col-xxl-9">
+                                                    <strong>Acerca del Contrato</strong>
+                                                    @*<p>El contrato se encuenta al día, ya ha pagado su cuota del mes y actualmente se ha gestionado n veces</p>*@
+                                                </div>
+                                            </div>
+
+                                            <table class="table table-sm my-2">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Fecha Activado</th>
+                                                        <td>{{laFechaActivacion}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Precio</th>
+                                                        <td>{{laPrecio}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Inicial</th>
+                                                        <td>{{laPorcInicial}}%- {{laInicial}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Financiamiento</th>
+                                                        <td>{{laFinanciamiento}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Plazo</th>
+                                                        <td>{{laPlazo}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>TEA</th>
+                                                        <td>{{laTEA}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Saldo</th>
+                                                        <td>S/. {{laSaldo}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Cuotas Pagadas</th>
+                                                        <td>{{laCuotasPagadas}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Status</th>
+                                                        <td><span class="badge bg-success">Active</span><span class="badge bg-warning">Moroso</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Cuotas Pendientes</th>
+                                                        <td>{{laCuotasPendientes}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Cuotas Atrasadas</th>
+                                                        <td>{{laCuotasAtrasadas}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <hr>
+
+                                            <strong>Últimos Pagos</strong>
+
+                                            <ul class="timeline mt-2 mb-0">
+                                                <li class="timeline-item">
+                                                    <strong>Signed out</strong>
+                                                    <span class="float-end text-muted text-sm">30m ago</span>
+                                                    <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Created invoice #1204</strong>
+                                                    <span class="float-end text-muted text-sm">2h ago</span>
+                                                    <p>Sed aliquam ultrices mauris. Integer ante arcu...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Discarded invoice #1147</strong>
+                                                    <span class="float-end text-muted text-sm">3h ago</span>
+                                                    <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Signed in</strong>
+                                                    <span class="float-end text-muted text-sm">3h ago</span>
+                                                    <p>Curabitur ligula sapien, tincidunt non, euismod vitae...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Signed up</strong>
+                                                    <span class="float-end text-muted text-sm">2d ago</span>
+                                                    <p>Sed aliquam ultrices mauris. Integer ante arcu...</p>
+                                                </li>
+                                            </ul>
+
+                                            <strong>Últimas Gestiones</strong>
+
+                                            <ul class="timeline mt-2 mb-0">
+                                                <li class="timeline-item">
+                                                    <strong>Signed out</strong>
+                                                    <span class="float-end text-muted text-sm">30m ago</span>
+                                                    <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Created invoice #1204</strong>
+                                                    <span class="float-end text-muted text-sm">2h ago</span>
+                                                    <p>Sed aliquam ultrices mauris. Integer ante arcu...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Discarded invoice #1147</strong>
+                                                    <span class="float-end text-muted text-sm">3h ago</span>
+                                                    <p>Nam pretium turpis et arcu. Duis arcu tortor, suscipit...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Signed in</strong>
+                                                    <span class="float-end text-muted text-sm">3h ago</span>
+                                                    <p>Curabitur ligula sapien, tincidunt non, euismod vitae...</p>
+                                                </li>
+                                                <li class="timeline-item">
+                                                    <strong>Signed up</strong>
+                                                    <span class="float-end text-muted text-sm">2d ago</span>
+                                                    <p>Sed aliquam ultrices mauris. Integer ante arcu...</p>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--CONTRATOS-->
+                <!--TELEFONOS-->
+                <div class="tab-pane fade" id="Telefonos" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Telefonos</h5>
+                            <button class="btn btn-pill btn-primary" ng-click="btnNuevoTelefonoo()">Nuevo</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taTelefonos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Número</th>
+                                                <th>Operador</th>
+                                                <th>Activo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Número</th>
+                                                <th>Operador</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--TELEFONOS-->
+                <!--CORREOS-->
+                <div class="tab-pane fade" id="Correos" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Correos</h5>
+                            <button class="btn btn-pill btn-primary" ng-click="btnNuevoCorreo()">Nuevo</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taCorreos" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Correo</th>
+                                                <th>Activo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Correo</th>
+                                                <th>Activo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--CORREOS-->
+                <!--DIRECCIONES-->
+                <div class="tab-pane fade" id="Direcciones" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Direcciones</h5>
+                            <button class="btn btn-pill btn-primary" ng-click="btnNuevaDireccion()">Nuevo</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <table id="taDirecciones" class="table table-responsive table-sm table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Departamento</th>
+                                                <th>Provincia</th>
+                                                <th>Distrito</th>
+                                                <th>Direccion</th>
+                                                <th>Activo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Departamento</th>
+                                                <th>Provincia</th>
+                                                <th>Distrito</th>
+                                                <th>Direccion</th>
+                                                <th>Activo</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--DIRECCIONES-->
+                <!--GESTIONES-->
+                <div class="tab-pane fade" id="Gestiones" role="tabpanel">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Gestiones Realizadas</h5>
+                            <button class="btn btn-pill btn-primary" ng-click="btnNuevaGestion()">Nuevo</button>
+                            @*<button class="btn btn-pill btn-warning">Anular</button>
+                            <button class="btn btn-pill btn-danger">Eliminar</button>*@
+                        </div>
+                        <div class="card-body">
+                            <table id="taGestiones" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha & Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Referencia</th>
+                                        <th>Motivo</th>
+                                        <th>Compromiso</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Fecha & Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Referencia</th>
+                                        <th>Motivo</th>
+                                        <th>Compromiso</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--GESTIONES-->
+                <!--NOTIFICACIONES AUTOMATICAS-->
+                <div class="tab-pane fade" id="NotificacionesAutomaticas" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Notificaciones Automáticas</h5>
+
+                            <table id="taGestionesAutomaticas" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha & Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Referencia</th>
+                                        <th>Motivo</th>
+                                        <th>Compromiso</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Fecha & Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Referencia</th>
+                                        <th>Motivo</th>
+                                        <th>Compromiso</th>
+                                        <th>Comentario</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <!--NOTIFICACIONES AUTOMATICAS-->
+                <!--CONFIGURACIONES-->
+                <div class="tab-pane fade" id="Configuraciones" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Configuraciones del cliente</h5>
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-checked="nc_preventiva">
+                                <span class="form-check-label">
+                                    Notificación Preventiva
+                                </span>
+                            </label>
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-checked="nc_cobranza">
+                                <span class="form-check-label">
+                                    Notificación Cobranza
+                                </span>
+                            </label>
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-checked="nc_texto">
+                                <span class="form-check-label">
+                                    Mensaje Texto
+                                </span>
+                            </label>
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-checked="nc_whatsapp">
+                                <span class="form-check-label">
+                                    Mensaje Whatsapp
+                                </span>
+                            </label>
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-checked="nc_correo">
+                                <span class="form-check-label">
+                                    Correo Electronico
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                <!--CONFIGURACIONES-->
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal Contratos-->
+    <div class="modal fade" id="moContrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalContrato}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtCodigoContrato" placeholder="Ingrese código" ng-disabled="txtContrato_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Fecha Activación</label>
+                                <input type="date" class="form-control" id="inputLastName" ng-model="txtFechaActivacion" placeholder="Ingrese fecha activación" ng-disabled="txtFechaActivacion_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Moneda</label>
+                            <select class="form-control mb-3" ng-model="ddlMonedaContrato" ng-options="item as item.nombre for item in oListaMonedaContrato" ng-disabled="ddlMoneda_Disable"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Precio Bien</label>
+                            <input type="text" class="form-control" id="inputFirstName" ng-model="txtPrecioBien" placeholder="Ingrese precio bien" ng-disabled="txtPrecioBien_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Inicial Bien</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtInicialBien" placeholder="Ingrese inicial bien" ng-disabled="txtInicialBien_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">% Inicial</label>
+                            <input type="text" class="form-control" id="inputFirstName" ng-model="txtPorcInicial" placeholder="Ingrese % inicial" ng-disabled="txtPorcInicial_Disable">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Plazo</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtPlazo" placeholder="Ingrese plazo crédito" ng-disabled="txtPlazo_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">TEA</label>
+                            <input type="text" class="form-control" id="inputFirstName" ng-model="txtTEA" placeholder="Ingrese TEA" ng-disabled="txtTEA_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">TCEA</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtTCEA" placeholder="Ingrese TCEA" ng-disabled="txtTCEA_Disable">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Financiamiento</label>
+                            <input type="text" class="form-control" id="inputFirstName" ng-model="txtFinanciamiento" placeholder="Ingrese monto financiamiento" ng-disabled="txtFinanciamiento_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Gastos</label>
+                            <input type="number" class="form-control" id="inputLastName" ng-model="txtGastos" placeholder="Ingrese gastos" ng-disabled="txtGastos_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Estado</label>
+                            <select class="form-control mb-3" ng-model="ddlEstadoContrato" ng-options="item as item.nombre for item in oListaEstadoContrato" ng-disabled="ddlEstadoOperacion_Disable"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Primer Vencimiento</label>
+                            <input type="date" class="form-control" id="inputFirstName" ng-model="txtFechaPrimerVencimiento" placeholder="Ingrese fecha primer vencimiento" ng-disabled="txtFechaPrimerVencimiento_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Vencimiento</label>
+                            <input type="date" class="form-control" id="inputLastName" ng-model="txtFechaVencimiento" placeholder="Ingrese fecha vencimiento del crédito" ng-disabled="txtFechaVencimiento_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Saldo</label>
+                            <input type="text" class="form-control" id="inputFirstName" ng-model="txtSaldo" placeholder="Ingrese monto saldo" ng-disabled="txtSaldo_Disable">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Cuotas Pagadas</label>
+                            <input type="number" class="form-control" id="inputLastName" ng-model="txtCuotasPagadas" placeholder="Ingrese cuotas pagadas" ng-disabled="txtCuotasPagadas_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Cuotas Pendientes</label>
+                            <input type="number" class="form-control" id="inputFirstName" ng-model="txtCuotasPendientes" placeholder="Ingrese cuotas pendientes" ng-disabled="txtCuotasPendientes_Disable">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Cuotas Atrazadas</label>
+                            <input type="number" class="form-control" id="inputLastName" ng-model="txtCuotasAtrasadas" placeholder="Ingrese cuotas atrasadas" ng-disabled="txtCuotasAtrasadas_Disable">
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="chkActivo" ng-model="chkActivo" ng-checked="chkActivo">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">aCTIVO</label>
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-model="nc_contrato_preventiva" ng-checked="nc_contrato_preventiva">
+                                    <span class="form-check-label">
+                                        Notificación Preventiva
+                                    </span>
+                                </label>
+
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-model="nc_contrato_preventiva" ng-checked="nc_contrato_cobranza">
+                                    <span class="form-check-label">
+                                        Notificación Cobranza
+                                    </span>
+                                </label>
+
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-model="nc_contrato_preventiva" ng-checked="nc_contrato_texto">
+                                    <span class="form-check-label">
+                                        Mensaje Texto
+                                    </span>
+                                </label>
+
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-model="nc_contrato_preventiva" ng-checked="nc_contrato_whatsapp">
+                                    <span class="form-check-label">
+                                        Mensaje Whatsapp
+                                    </span>
+                                </label>
+
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="notyf-ripple" ng-model="nc_contrato_preventiva" ng-checked="nc_contrato_correo">
+                                    <span class="form-check-label">
+                                        Correo Electronico
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                            </div>
+                        </div>
+                    <h5 class="modal-title" id="exampleModalLabel">Cronograma</h5>
+                    <table id="taCronograma" class="table table-responsive table-sm table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha Venc.</th>
+                                <th>Días</th>
+                                <th>Capital</th>
+                                <th>Interés</th>
+                                <th>Portes</th>
+                                <th>Otros</th>
+                                <th>Cuota</th>
+                                <th>Fecha Pago</th>
+                                <th>Mora</th>
+                                <th>Total Cuota</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha Venc.</th>
+                                <th>Días</th>
+                                <th>Capital</th>
+                                <th>Interés</th>
+                                <th>Portes</th>
+                                <th>Otros</th>
+                                <th>Cuota</th>
+                                <th>Fecha Pago</th>
+                                <th>Mora</th>
+                                <th>Total Cuota</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="btnGuardarContrato()">Guardar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Telefonos-->
+    <div class="modal fade" id="moTelefonos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalTelefonos}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Tipo Telefono</label>
+                            <select class="form-control mb-3" ng-model="ddlTipoTelefono" ng-options="item as item.nombre for item in oListaTipoTelefono"></select>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="txtTelefonoEdit" ng-model="txtTelefonoEdit" placeholder="Ingrese número">
+                        </div>                        
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Operador</label>
+                            <select class="form-control mb-3" ng-model="ddlOperadorTelefono" ng-options="item as item.nombre for item in oListaOperadorTelefono"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="chkActivoTelefono" ng-model="chkActivoTelefono" ng-checked="chkActivo">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="inputFirstName" class="form-label">Comentario</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea" ng-model="tadComentarioTelefono"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="btnGuardarTelefono()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Correos-->
+    <div class="modal fade" id="moCorreos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalCorreos}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Tipo Correo</label>
+                            <select class="form-control mb-3" ng-model="ddlTipoCorreo" ng-options="item as item.nombre for item in oListaTipoCorreo"></select>
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="inputLastName" class="form-label">Correo</label>
+                            <input type="text" class="form-control" id="txtCorreoEdit" ng-model="txtCorreoEdit" placeholder="Ingrese Correo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="chkActivoCorreo" ng-model="chkActivoCorreo" ng-checked="chkActivo">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="inputFirstName" class="form-label">Comentario</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea" ng-model="taComentarioCorreo"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="btnGuardarCorreo()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Direcciones-->
+    <div class="modal fade" id="moDirecciones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalDirecciones}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Tipo Dirección</label>
+                            <select class="form-control mb-3" ng-model="ddlTipoDireccion" ng-options="item as item.nombre for item in oListaTipoDireccion"></select>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Departamento</label>
+                            <select class="form-control mb-3" ng-model="ddlDepartamentoDireccion" ng-options="item as item.nombre for item in oListaDepartamentoDireccion" ng-change="btnCargarProvinciaDireccion()"></select>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Provincia</label>
+                            <select class="form-control mb-3" ng-model="ddlProvinciaDireccion" ng-options="item as item.nombre for item in oListaProvinciaDireccion" ng-change="btnCargarDistritoDireccion()"></select>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Distrito</label>
+                            <select class="form-control mb-3" ng-model="ddlDistritoDireccion" ng-options="item as item.nombre for item in oListaDistritoDireccion"></select>
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="inputLastName" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="txtDireccionEdit" ng-model="txtDireccionEdit" placeholder="Ingrese dirección">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-8">
+                            <label for="inputFirstName" class="form-label">Referencia</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea" ng-model="taReferenciaDireccion"></textarea>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="chkActivoDireccion" ng-model="chkActivoDireccion" ng-checked="chkActivo">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Activo</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-12">
+                            <label for="inputFirstName" class="form-label">Comentario</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea" ng-model="taComentarioDireccion"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="btnGuardarDireccion()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Gestiones-->
+    <div class="modal fade" id="moGestiones" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalGestiones}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Fecha y Hora Gestion</label>
+                            <input type="datetime-local" class="form-control" id="inputLastName" placeholder="Ingrese fecha y hora gestion">
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Tipo Gestion</label>
+                            <select class="form-control mb-3" ng-model="ddlMoneda" ng-options="item as item.nombre for item in oListaMoneda"></select>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="inputLastName" class="form-label">Contrato Referencia</label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Ingrese contrato referencia">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="inputFirstName" class="form-label">Fecha Compromiso</label>
+                            <input type="date" class="form-control" id="inputFirstName" placeholder="Ingrese fecha compromiso">
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label for="inputLastName" class="form-label">Motivo</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-12">
+                            <label for="inputFirstName" class="form-label">Comentario</label>
+                            <textarea class="form-control" rows="2" placeholder="Textarea"></textarea>
+                        </div>
+                    </div>
+                    <h5 class="modal-title" id="exampleModalLabel">Plataformas Integradas</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

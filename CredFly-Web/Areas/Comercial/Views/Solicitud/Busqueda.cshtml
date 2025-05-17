@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Comercial/Solicitud/Busqueda.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaSolicitudes">
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Búsqueda de Solicitudes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtIdSolicitud">N°</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">N°</div>
+                                <input type="text" class="form-control" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder="N°">
+                            </div>
+
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="ddlTipoDocumento">Tipo Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Tipo Documento</div>
+                                <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento"></select>
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtDocumento">Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Documento</div>
+                                <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtNombres">Nombres</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Nombres</div>
+                                <input type="text" class="form-control" id="txtNombres" ng-model="txtNombres" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApePaterno">Ape. Paterno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Paterno</div>
+                                <input type="text" class="form-control" id="txtApePaterno" ng-model="txtApePaterno" placeholder="Ape. Paterno">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApeMaterno">Ape. Materno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Materno</div>
+                                <input type="text" class="form-control" id="txtApeMaterno" ng-model="txtApeMaterno" placeholder="Ape. Materno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="txtFechaInicio">Fecha Ini</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Fecha Ini</div>
+                                <input type="text" class="form-control" id="txtFechaInicio" ng-model="txtFechaInicio" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="txtFechaFin">Fecha Fin</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Fecha Fin</div>
+                                <input type="text" class="form-control" id="txtFechaFin" ng-model="txtFechaFin" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="ddlEtapaSolicitud">Etapa Solicitud</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Etapa Solicitud</div>
+                                <select class="form-control" ng-model="ddlEtapaSolicitud" ng-options="item as item.nombre for item in oListaEtapaSolicitud" ng-disabled="ddlEtapaSolicitud_Disable"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-4">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label for="inputLastName" class="form-label"></label>
+                            <button type="submit" class="btn btn-primary form-control" ng-click="btnBuscar()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resultado : {{cant_registros_busqueda}}</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <table id="taSolicitudes" class="table table-responsive table-sm table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Solicitud</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Etapa</th>
+                                        <th>-</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Solicitud</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Etapa</th>
+                                        <th>-</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+

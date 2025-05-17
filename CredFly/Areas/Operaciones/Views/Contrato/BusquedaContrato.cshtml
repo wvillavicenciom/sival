@@ -1,0 +1,333 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/js/ClienteApp/Operaciones/Contrato/Busquedacontrato.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaContratos">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Búsqueda de Contratos</h5>
+            <h6 class="card-subtitle text-muted">Ingrese alguno de los datos para filtrar el resultado de la búsqueda o haga clic en el botón buscar directamente para mostrar todos los registros</h6>
+        </div>
+        <div class="card-body">
+            <form class="row row-cols-md-auto align-items-center">
+                <div class="col-8">
+                    <label class="sr-only" for="inlineFormInputName2">Contrato</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Documento" ng-model="txtDocumento">
+                </div>
+
+                <div class="col-8">
+                    <label class="sr-only" for="inlineFormInputName2">Documento</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Código" ng-model="txtDocumento">
+                </div>
+
+                <div class="col-8">
+                    <label class="sr-only" for="inlineFormInputName2">Apellido Paterno</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Apellidos o Nombres">
+                </div>
+
+                <div class="col-8">
+                    <label class="sr-only" for="inlineFormInputName2">Fecha Inic</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Fecha Inicial">
+                </div>
+
+                <div class="col-8">
+                    <label class="sr-only" for="inlineFormInputName2">Fecha Fin</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Fecha Final">
+                </div>
+
+                @*<div class="col-12">
+                        <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-text"></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Código">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="sr-only" for="inlineFormInputGroupUsername2">Apellidos o Nombres</label>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <div class="input-group-text"></div>
+                            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Apellidos o Nombres">
+                        </div>
+                    </div>*@
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mb-2" ng-click="btnBuscar()">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Resultados</h5>
+        </div>
+        <div class="card-body">
+            <table id="taContratos" class="table table-responsive table-sm table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Contrato</th>
+                        <th>Precio</th>
+                        <th>Inicial</th>
+                        <th>Financiado</th>
+                        <th>Plazo</th>
+                        <th>TEA</th>
+                        <th>Saldo</th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Contrato</th>
+                        <th>Precio</th>
+                        <th>Inicial</th>
+                        <th>Financiado</th>
+                        <th>Plazo</th>
+                        <th>TEA</th>
+                        <th>Saldo</th>
+                        <th>-</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!-- Modal Contratos-->
+    <div class="modal fade" id="moContrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Administración del contrato {{vgContratoSelec}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-3 col-xl-2">
+
+                            <div class="card">
+                                <div class="list-group list-group-flush" role="tablist">
+                                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#datos" role="tab" aria-selected="true">
+                                        Datos
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#cronograma" role="tab" aria-selected="false" tabindex="-1">
+                                        Cronograma
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-xl-10">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="datos" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Datos del Contrato</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Tipo Documento</label>
+                                                        <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento"></select>
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Documento</label>
+                                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtDocumento"  placeholder="Documento">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Apellido Paterno</label>
+                                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtapellidoPaterno"  placeholder="Ingrese apellido paterno">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Apellido Materno</label>
+                                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtApellidoMaterno" placeholder="Ingrese apellido materno">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Nombres</label>
+                                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtNombres" placeholder="Ingrese nombres">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Fecha Nacimiento</label>
+                                                        <input type="date" class="form-control" id="inputLastName" ng-model="txtMontoFechaNacimiento" placeholder="Ingrese fecha nacimiento">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Precio Bien</label>
+                                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtMontoPrecio" placeholder="ingrese monto precio">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Inicial Bien</label>
+                                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtMontoInicial" placeholder="Ingrese monto inicial">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">% Inicial</label>
+                                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtPorcInicial" placeholder="ingrese porcentaje">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Gastos</label>
+                                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtMontoGastos" placeholder="Ingrese monto">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Financiado</label>
+                                                        <input type="text" class="form-control" id="inputFirstName" ng-model="txtMontoFinanciado" placeholder="ingrese monto">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Fecha Activacion</label>
+                                                        <input type="date" class="form-control" id="inputLastName" ng-model="txtFechaActivacion" placeholder="Ingrese fecha">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Moneda</label>
+                                                        <select class="form-control " ng-model="ddlMoneda" ng-options="item as item.nombre for item in oListaMoneda"></select>
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">Estado</label>
+                                                        <select class="form-control" ng-model="ddlEstadoContrato" ng-options="item as item.nombre for item in oListaEstadoContrato"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputFirstName" class="form-label">Plazo</label>
+                                                        <input type="number" class="form-control" id="inputFirstName" ng-model="txtPlazo" placeholder="ingrese telefono principal">
+                                                    </div>
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="inputLastName" class="form-label">TEA</label>
+                                                        <input type="text" class="form-control" id="inputLastName" ng-model="txtTEA" placeholder="Ingrese correo principal">
+                                                    </div>
+                                                </div>
+                                                @*<div class="mb-3">
+            <label for="inputAddress2" class="form-label">Dirección Principal</label>
+            <input type="text" class="form-control" id="inputAddress2" placeholder="Ingrese su dirección completa">
+        </div>
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="inputCity" class="form-label">Departamento</label>
+                <select class="form-control mb-3" ng-model="ddlDepartamento" ng-options="item as item.nombre for item in oListaDepartamento"></select>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="inputState" class="form-label">Provincia</label>
+                <select class="form-control mb-3" ng-model="ddlProvincia" ng-options="item as item.nombre for item in oListaProvincia"></select>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="inputZip" class="form-label">Distrito</label>
+                <select class="form-control mb-3" ng-model="ddlDistrito" ng-options="item as item.nombre for item in oListaDistrito"></select>
+            </div>
+        </div>*@
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade active" id="cronograma" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Listado de Cuotas</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            @*<div class="row col-lg-12">*@
+                                                <table id="taCronograma" class="table table-responsive table-sm table-hover" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Vencimiento</th>
+                                                            <th>Capital</th>
+                                                            <th>Interés</th>
+                                                            <th>Desgr.</th>
+                                                            <th>Portes</th>
+                                                            <th>Otros</th>
+                                                            <th>Cuota</th>
+                                                            <th>Estado</th>
+                                                            <th>Pago</th>
+                                                            <th>Mora</th>
+                                                            <th>Total Pagado</th>
+                                                            <th>Banco</th>
+                                                            <th>Comentario</th>
+                                                            <th>Comentario Pago</th>
+                                                        </tr>
+                                                    </thead>
+                                                    @*<tbody>
+                                                        <tr ng-repeat="item in oListaCronograma">
+                                                            <td>{{item.nro_cuota}}</td>
+                                                            <td>{{item.fecha_vencimiento}}</td>
+                                                            <td>{{item.mto_capital}}</td>
+                                                            <td>{{item.mto_interes}}</td>
+                                                            <td>{{item.mto_desgravamen}}</td>
+                                                            <td>{{item.mto_portes}}</td>
+                                                            <td>{{item.mto_otros}}</td>
+                                                            <td>{{item.mto_cuota}}</td>
+                                                            <td>{{item.estado}}</td>
+                                                            <td>{{item.fecha_pago}}</td>
+                                                            <td>{{item.mto_mora}}</td>
+                                                            <td>{{item.mto_total_pagar}}</td>
+                                                            <td>{{item.banco}}</td>
+                                                            <td>{{item.comentario}}</td>
+                                                            <td>{{item.comentario_pago}}</td>
+                                                        </tr>
+                                                    </tbody>*@
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Vencimiento</th>
+                                                            <th>Capital</th>
+                                                            <th>Interés</th>
+                                                            <th>Desgr.</th>
+                                                            <th>Portes</th>
+                                                            <th>Otros</th>
+                                                            <th>Cuota</th>
+                                                            <th>Estado</th>
+                                                            <th>Fecha Pago</th>
+                                                            <th>Mora</th>
+                                                            <th>Pagado</th>
+                                                            <th>Banco</th>
+                                                            <th>Comentario</th>
+                                                            <th>Comentario Pago</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            @*</div>*@
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

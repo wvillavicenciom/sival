@@ -1,0 +1,203 @@
+﻿@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Administracion/Cliente/BusquedaCliente.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaCliente">
+
+    <div class="row">
+
+        <div class="col-xl-9">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Búsqueda de Clientes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="mb-3 col-md-3">
+                                <label for="inputLastName" class="form-label">Documento</label>
+                                <input type="text" class="form-control" id="inputLastName" ng-model="txtDocumento" placeholder="??????">
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="inputFirstName" class="form-label">Apellido Paterno</label>
+                                <input type="text" class="form-control" id="inputFirstName" ng-model="txtApellidoPaterno" placeholder="??????">
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="inputLastName" class="form-label">Apellido Materno</label>
+                                <input type="text" class="form-control" id="inputLastName" ng-model="txtApellidoMaterno" placeholder="??????">
+                            </div>
+                            <div class="mb-3 col-md-2">
+                                <label for="inputLastName" class="form-label"></label>
+                                <button type="submit" class="btn btn-primary form-control" ng-click="btnBuscar()">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="taClientes" class="table table-responsive table-sm table-hover" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Documento</th>
+                                <th>Ape. Paterno</th>
+                                <th>Ape. Materno</th>
+                                <th>Nombres</th>
+                                <th>Contratos</th>
+                                <th>Financiado</th>
+                                <th>Saldo</th>
+                                <th>-</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Documento</th>
+                                <th>Ape. Paterno</th>
+                                <th>Ape. Materno</th>
+                                <th>Nombres</th>
+                                <th>Contratos</th>
+                                <th>Financiado</th>
+                                <th>Saldo</th>
+                                <th>-</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-0">
+                        <div class="col-sm-3 col-xl-12 col-xxl-3 text-center">
+                            <h5 class="card-title mb-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user align-middle me-2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                {{laNombreCompleto}}
+                            </h5>
+                        </div>
+                    </div>
+
+                    <table class="table table-sm my-2">
+                        <tbody>
+                            <tr>
+                                <th>Documento</th>
+                                <td>{{laDocumento}}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha Nacimiento</th>
+                                <td>{{laFechaNacimiento}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{laEmail}}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono</th>
+                                <td>{{laTelefono}}</td>
+                            </tr>
+                            <tr>
+                                <th>Estado</th>
+                                <td><span class="badge bg-success">Active</span><span class="badge bg-warning">Moroso</span></td>
+                            </tr>
+                            <tr>
+                                <th>Contratos</th>
+                                <td><span class="badge bg-info">{{laContrato}}</span></td>
+                            </tr>
+                            <tr>
+                                <th>Financiamiento</th>
+                                <td><span class="badge bg-info">S/. {{laFinanciamiento}}</span></td>
+                            </tr>
+                            <tr>
+                                <th>Saldo</th>
+                                <td><span class="badge bg-info">S/. {{laSaldo}}</span></td>
+                            </tr>
+                            <tr>
+                                <th>Cuota</th>
+                                <td><span class="badge bg-info">S/. {{laCuota}}</span></td>
+                            </tr>
+                            <tr>
+                                <th>Cuotas Morosas</th>
+                                <td><span class="badge bg-danger">{{laCuotasMorosas}}</span><span class="badge bg-danger">S/. {{laCuotasMorosas}}</span></td>
+                            </tr>
+                            <tr>
+                                <th>Último Venci.</th>
+                                <td><span class="badge bg-info">{{laUltimoVencimiento}}</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <hr>
+
+                    <strong>Últimos Pagos</strong>
+
+                    <ul class="timeline mt-2 mb-0">
+                        <li class="timeline-item">
+                            <strong>Cuota 5</strong>
+                            <span class="float-end text-muted text-sm">2022-06-30</span>
+                            <p>Monto S/. 1500 con vencimiento el 2022-06-28 y pagado con 2 días de atraso</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Cuota 4</strong>
+                            <span class="float-end text-muted text-sm">2022-05-30</span>
+                            <p>Monto S/. 1500 con vencimiento el 2022-06-28 y pagado con 2 días de atraso</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Cuota 4</strong>
+                            <span class="float-end text-muted text-sm">2022-04-28</span>
+                            <p>Monto S/. 1500 con vencimiento el 2022-06-28 y pagado con 0 días de atraso</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Cuota 2</strong>
+                            <span class="float-end text-muted text-sm">2022-04-28</span>
+                            <p>Monto S/. 1500 con vencimiento el 2022-04-28 y pagado con 0 días de atraso</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Cuota 1</strong>
+                            <span class="float-end text-muted text-sm">2022-04-30</span>
+                            <p>Monto S/. 1500 con vencimiento el 2022-06-28 y pagado con 2 días de atraso</p>
+                        </li>
+                    </ul>
+
+                    <strong>Gestiones</strong>
+
+                    <ul class="timeline mt-2 mb-0">
+                        <li class="timeline-item">
+                            <strong>Mensaje Whatsapp</strong>
+                            <span class="float-end text-muted text-sm">2022-06-30</span>
+                            <p>Recordatorio pago de cuota N° 6 enviado</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Correo Electrónico</strong>
+                            <span class="float-end text-muted text-sm">2022-06-29</span>
+                            <p>Correo electrónico enviado para el pago de la cuota N° 6</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Mensaje Whatsapp</strong>
+                            <span class="float-end text-muted text-sm">2022-06-28</span>
+                            <p>Recordatorio pago de cuota N° 6 enviado</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Mensaje Texto</strong>
+                            <span class="float-end text-muted text-sm">2022-06-27</span>
+                            <p>Mensaje de texto enviado para el pago de la cuota N°</p>
+                        </li>
+                        <li class="timeline-item">
+                            <strong>Mensaje Whatsapp</strong>
+                            <span class="float-end text-muted text-sm">2022-06-26</span>
+                            <p>Recordatorio pago de cuota N° 6 enviado</p>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

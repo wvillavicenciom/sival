@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@section Scripts {
+    <script src="~/ClienteApp/Operaciones/Contrato/Busqueda.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaOperaciones">
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Búsqueda de Operaciones</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">N°</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtIdOperacion" placeholder="??????">
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="inputFirstName" class="form-label">Tipo Documento</label>
+                            <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disable"></select>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Documento</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtDocumento" placeholder="??????">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtNombres" placeholder="??????">
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Ape. Paterno</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtApePaterno" placeholder="??????">
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Ape. Materno</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtApeMaterno" placeholder="??????">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Fecha Ini</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtIdSolicitud" placeholder="??????">
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="inputLastName" class="form-label">Fecha Fin</label>
+                            <input type="text" class="form-control" id="inputLastName" ng-model="txtDocumento" placeholder="??????">
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label for="ddlEstadoOperacion" class="form-label">Estado</label>
+                            <select class="form-control" ng-model="ddlEstadoOperacion" ng-options="item as item.nombre for item in oListaEstadoOperacion" ng-disabled="ddlEstadoOperacion_Disable"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="mb-3 col-md-4">
+                    </div>
+                    <div class="mb-3 col-md-4">
+                    </div>
+                    <div class="mb-3 col-md-4">
+                    <label for="inputLastName" class="form-label"></label>
+                    <button type="submit" class="btn btn-primary form-control" ng-click="btnBuscar()">Buscar</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resultado : {{cant_registros_busqueda}}</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <table id="taSolicitudes" class="table table-responsive table-sm table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Activación</th>
+                                        <th>Tipo Doc.</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Financiado</th>
+                                        <th>Inicial</th>
+                                        <th>Inicial (%)</th>
+                                        <th>Plazo</th>
+                                        <th>TEA</th>
+                                        <th>Estado</th>
+                                        <th>-</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Activación</th>
+                                        <th>Tipo Doc.</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Financiado</th>
+                                        <th>Inicial</th>
+                                        <th>Inicial (%)</th>
+                                        <th>Plazo</th>
+                                        <th>TEA</th>
+                                        <th>Estado</th>
+                                        <th>-</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>

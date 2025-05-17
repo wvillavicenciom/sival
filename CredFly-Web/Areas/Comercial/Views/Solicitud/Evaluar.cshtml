@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "Evaluar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Comercial/Solicitud/Evaluar.js?1.0.0"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="Evaluar">
+
+    <div class="row">
+        <div class="col-xl-3">
+
+        </div>
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Evaluación de Cliente</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">                        
+                        <div class="mb-23">
+                            <label for="ddlTipoDocumento" class="form-label">Tipo Documento</label>
+                            <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento"></select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtDocumento" class="form-label">Documento</label>
+                            <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="??????">
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtFechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                            <input type="date" class="form-control" id="txtFechaNacimiento" ng-model="txtFechaNacimiento" placeholder="??????">
+                        </div>
+                        <div class="mb-2">
+                            <label for="ddlCategoriaLaboral" class="form-label">Categoría Laboral</label>
+                            <select class="form-control" ng-model="ddlCategoriaLaboral" ng-options="item as item.nombre for item in oListaCategoriaLaboral"></select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIngresoBruto" class="form-label">Ingreso Bruto</label>
+                            <input type="text" class="form-control" id="txtIngresoBruto" ng-model="txtIngresoBruto" placeholder="??????">
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtFechaIngresoLaboral" class="form-label">Fecha Ing. Laboral</label>
+                            <input type="date" class="form-control" id="txtFechaIngresoLaboral" ng-model="txtFechaIngresoLaboral" placeholder="??????">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputLastName" class="form-label"></label>
+                            <button type="submit" class="btn btn-primary form-control" ng-click="btnEvaluar()">Evaluar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+        </div>
+    </div>
+
+
+
+    <!-- Modal Contratos-->
+    <div class="modal fade" id="moResultado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{vgTituloModalContrato}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtTipoDocumento_sel" class="form-label">Tipo Documento</label>
+                                <input type="text" class="form-control" id="txtTipoDocumento_sel" ng-model="txtTipoDocumento_sel" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtDocumento_sel" class="form-label">Documento</label>
+                                <input type="text" class="form-control" id="txtDocumento_sel" ng-model="txtDocumento_sel" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtFechaNacimiento_sel" class="form-label">Fecha Nacimiento</label>
+                                <input type="date" class="form-control" id="txtFechaNacimiento_sel" ng-model="txtFechaNacimiento_sel" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtCategoriaLaboral_sel" class="form-label">Categoría Laboral</label>
+                                <input type="text" class="form-control" id="txtCategoriaLaboral_sel" ng-model="txtCategoriaLaboral_sel" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtIngresoBruto_sel" class="form-label">Ingreso Bruto</label>
+                                <input type="text" class="form-control" id="txtIngresoBruto_sel" ng-model="txtIngresoBruto_sel" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-6">
+                                <label for="txtFechaIngresoLaboral_sel" class="form-label">Fecha Ing. Laboral</label>
+                                <input type="date" class="form-control" id="txtFechaIngresoLaboral_sel" ng-model="txtFechaIngresoLaboral_sel" disabled>
+                            </div>
+                        </div>
+
+                        <h5 class="modal-title" id="exampleModalLabel">Resultado Evaluación Automática</h5>
+                        <div class="row">
+                            <div class="mb-2 col-lg-12">
+                                <label for="txtResultado" class="form-label">Resultado</label>
+                                <input type="text" class="form-control" id="txtResultado" ng-model="txtResultado" disabled>
+                            </div>
+                            <div class="mb-2 col-lg-12">
+                                <label for="txtMotivoRechazo" class="form-label">Motivo Rechazo</label>
+                                <input type="text" class="form-control" id="txtMotivoRechazo" ng-model="txtMotivoRechazo" disabled>
+                            </div>                            
+                        </div>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" ng-click="btnCerrar()">Salir</button>
+                        <button type="submit" class="btn btn-primary" ng-click="btnNuevaEvaluacion()">Nueva Evaluación</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

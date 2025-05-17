@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CredFly.Administracion.BE\CredFly.Administracion.BE.csproj" />
+    <ProjectReference Include="..\CredFly.Administracion.BL\CredFly.Administracion.BL.csproj" />
+  </ItemGroup>
+
+</Project>

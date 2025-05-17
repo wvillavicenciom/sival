@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>CredFly_Web</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Areas\Cobranza\**" />
+        <Compile Remove="Areas\Operaciones\**" />
+        <Content Remove="Areas\Cobranza\**" />
+        
+        <EmbeddedResource Remove="Areas\Cobranza\**" />
+        <EmbeddedResource Remove="Areas\Operaciones\**" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Areas\Operaciones\Controllers\ContratoController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administracion\Models\" />
+    <Folder Include="Areas\Admision\Data\" />
+    <Folder Include="Areas\Admision\Models\" />
+    <Folder Include="Areas\Comercial\Models\" />
+    <Folder Include="Areas\Operaciones\Data\" />
+    <Folder Include="Areas\Operaciones\Models\" />
+    <Folder Include="Areas\Seguridad\Models\" />
+    <Folder Include="wwwroot\ClienteApp\Operaciones\Procesos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Operaciones\Views\Contratos\Busqueda.cshtml" />
+    <None Include="Areas\Operaciones\Views\Contrato\Busqueda.cshtml" />
+    <None Include="Areas\Operaciones\Views\Contrato\RegistroOperacion.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BackEnd\01.Seguridad\CredFly.Seguridad.BE\CredFly.Seguridad.BE.csproj" />
+    <ProjectReference Include="..\BackEnd\01.Seguridad\CredFly.Seguridad.SL\CredFly.Seguridad.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\02.Administracion\CredFly.Administracion.BE\CredFly.Administracion.BE.csproj" />
+    <ProjectReference Include="..\BackEnd\02.Administracion\CredFly.Administracion.SL\CredFly.Administracion.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\03.Comercial\CredFly.Comercial.SL\CredFly.Comercial.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\98.Generico\CredFly.Generico.SL\CredFly.Generico.SL.csproj" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4lib_4bootstrap_4dist_4css_4bootstrap-utilities_1css_1map__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
+</Project>

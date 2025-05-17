@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Alertas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid p-0">
+
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Alertas</h2>
+                    <h6 class="card-subtitle text-muted">Configuración para las alertas generales del sistema</h6>
+                </div>
+                <div class="card-body">
+                    <form>
+                        @*<div class="mb-3">
+                        <label class="form-check">
+                        <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                        <span class="form-check-label">
+                        Notificación de alertas Global Activada
+                        </span>
+                        </label>
+                        </div>*@
+                        @*<div class="mb-3">
+                        <label class="form-label">Envío de clientes que pagaron sus cuotas en el día anterior</label>
+                        <input type="password" class="form-control" placeholder="##">
+                        </div>
+                        <div class="mb-3">
+                        <label class="form-label">Envío de clientes vencidos al día siguiente de sus vencimiento</label>
+                        <input type="email" class="form-control" placeholder="##">
+                        </div>
+                        <div class="mb-3">
+                        <label class="form-label">Dias de atraso límite (0 ó Vacío indica sin límite)</label>
+                        <input type="password" class="form-control" placeholder="##">
+                        </div>*@
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Envío de clientes que pagaron sus cuotas en el día anterior</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Envío de clientes vencidos al día siguiente de sus vencimiento</span>
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="notyf-ripple">
+                                <span class="form-check-label">Envío de resumen de cartera por tramos de atraso</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

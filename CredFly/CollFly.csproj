@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administracion\Data\" />
+    <Folder Include="Areas\Administracion\Models\" />
+    <Folder Include="Areas\Cobranza\Data\" />
+    <Folder Include="Areas\Cobranza\Models\" />
+    <Folder Include="Areas\Operaciones\Data\" />
+    <Folder Include="Areas\Operaciones\Models\" />
+    <Folder Include="Areas\Seguridad\Data\" />
+    <Folder Include="Areas\Seguridad\Models\" />
+    <Folder Include="wwwroot\js\ClienteApp\Operaciones\Procesos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BackEnd\01.Seguridad\CollFly.Seguridad.SL\CollFly.Seguridad.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\02.Administracion\CollFly.Administracion.BE\CollFly.Administracion.BE.csproj" />
+    <ProjectReference Include="..\BackEnd\02.Administracion\CollFly.Administracion.SL\CollFly.Administracion.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\04.Operaciones\CollFly.Operaciones.BE\CollFly.Operaciones.BE.csproj" />
+    <ProjectReference Include="..\BackEnd\04.Operaciones\CollFly.Operaciones.SL\CollFly.Operaciones.SL.csproj" />
+    <ProjectReference Include="..\BackEnd\98.Generico\CollFly.Generico.BE\CollFly.Generico.BE.csproj" />
+    <ProjectReference Include="..\BackEnd\98.Generico\CollFly.Generico.SL\CollFly.Generico.SL.csproj" />
+  </ItemGroup>
+
+</Project>
