@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewData["Title"] = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Comercial/Solicitud/Busqueda.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="BusquedaSolicitudes">
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Búsqueda de Solicitudes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtIdSolicitud">N°</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">N°</div>
+                                <input type="text" class="form-control" id="txtIdSolicitud" ng-model="txtIdSolicitud" placeholder="N°">
+                            </div>
+
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="ddlTipoDocumento">Tipo Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Tipo Documento</div>
+                                <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento"></select>
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtDocumento">Documento</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Documento</div>
+                                <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtNombres">Nombres</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Nombres</div>
+                                <input type="text" class="form-control" id="txtNombres" ng-model="txtNombres" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApePaterno">Ape. Paterno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Paterno</div>
+                                <input type="text" class="form-control" id="txtApePaterno" ng-model="txtApePaterno" placeholder="Ape. Paterno">
+                            </div>
+                        </div>
+                        <div class="mb-2 col-md-4">
+                            <label class="visually-hidden" for="txtApeMaterno">Ape. Materno</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Ape. Materno</div>
+                                <input type="text" class="form-control" id="txtApeMaterno" ng-model="txtApeMaterno" placeholder="Ape. Materno">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="txtFechaInicio">Fecha Ini</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-25">Fecha Ini</div>
+                                <input type="date" class="form-control" id="txtFechaInicio" ng-model="txtFechaInicio" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="visually-hidden" for="txtFechaFin">Fecha Fin</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Fecha Fin</div>
+                                <input type="date" class="form-control" id="txtFechaFin" ng-model="txtFechaFin" placeholder="">
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <!--<label class="visually-hidden" for="ddlEtapaSolicitud">Etapa Solicitud</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-text w-50">Etapa Solicitud</div>
+                                <select class="form-control" ng-model="ddlEtapaSolicitud" ng-options="item as item.nombre for item in oListaEtapaSolicitud" ng-disabled="ddlEtapaSolicitud_Disable"></select>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-4">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label for="inputLastName" class="form-label"></label>
+                            <button type="submit" class="btn btn-primary form-control" ng-click="btnBuscar(0)">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resultado : {{cant_registros_busqueda}} registros encontrados</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <table id="taSolicitudes" class="table table-hover " style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Solicitud</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Segmento</th>
+                                        <th>PD</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha Solicitud</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Cliente</th>
+                                        <th>Segmento</th>
+                                        <th>PD</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Componente Offcanvas (Panel Lateral) -->
+    <div class="offcanvas offcanvas-end bg-body" tabindex="-1" id="panelDerecho" aria-labelledby="tituloPanel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tituloPanel">Datos de la Solicitud</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="card">
+
+                <div class="card-header">
+                    @*<h5 class="card-title mb-0">Segmento</h5>
+                     <div id="chart" style="padding: 0; max-width: 380px;  margin: 35px auto;"></div> *@
+                    <div style="padding: 0; max-width: 380px;  margin: 35px auto;text-align:center">
+                        <h5 class="card-title mb-0">Segmento</h5>
+                        <span id="hdSegmento" style="font-size:5rem;border-radius:0.5rem">&nbsp;&nbsp;{{Segmento_Sel}}&nbsp;&nbsp;</span>
+                    </div>
+                    <h5 class="card-title mb-0">PD Estimada: {{PDEstimada_Sel}}</h5>
+                </div>
+
+                <div class="card-body">
+                    <div data-fg-d3bl311="0.8:1.67295:/src/app/App.tsx:759:5:41171:487:e:div:ete:1" data-fgid-d3bl311=":reg:" data-fg-callsite-d3bl305="">
+
+                        <h4 class="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest mb-3" data-fg-d3bl312="0.8:1.67295:/src/app/App.tsx:760:7:41183:107:e:h4:x" data-fgid-d3bl312=":reh:">Datos del cliente</h4>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user align-middle me-2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <span class="align-middle">Cliente :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Cliente_sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="file" class="lucide lucide-file align-middle me-2"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>
+                                    <span class="align-middle">Documento :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{TipoDocumento_Sel}}-{{Documento_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+
+                        @* <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone align-middle me-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    <span class="align-middle">Teléfono :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Telefono_Sel}}</span>
+                                </p>
+                            </div>
+                        </div> *@
+
+                        @* <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="mail" class="lucide lucide-mail align-middle me-2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                                    <span class="align-middle">Correo :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Correo_Sel}}</span>
+                                </p>
+                            </div>
+                        </div> *@
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar align-middle me-2"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+                                    <span class="align-middle">Fecha Nacimiento :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{FechaNacimiento_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle me-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span class="align-middle">Genero :</span>
+                                    
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Genero_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle me-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span class="align-middle">Actividad Económica :</span>
+
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{ActividadEconomica_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle me-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span class="align-middle">Convenio :</span>
+
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Convenio_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle me-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span class="align-middle">Departamento :</span>
+
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{Departamento_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="heart" class="lucide lucide-heart align-middle me-2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+                                    <span class="align-middle">N° Créditos :</span>
+
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted">
+                                    <span class="align-middle">{{NroCreditos_Sel}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <div class="p-4 rounded-lg border bg-red-50 border-red-200" data-fg-d3bl308="0.8:1.67295:/src/app/App.tsx:748:11:40852:169:e:div:e" data-fgid-d3bl308=":rg2:">
+                        <p class="text-xs leading-relaxed text-red-700" data-fg-d3bl309="0.8:1.67295:/src/app/App.tsx:749:13:40932:72:e:p:x" data-fgid-d3bl309=":rg3:">El cliente no cumple con los criterios mínimos para la aprobación del crédito en este momento.</p>
+                    </div>
+                </div>
+            </div>          
+
+        </div>
+    </div>
+
+</div>
+

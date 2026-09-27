@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIVAL.Generico.BE\SIVAL.Generico.BE.csproj" />
+    <ProjectReference Include="..\SIVAL.Generico.DO\SIVAL.Generico.DO.csproj" />
+  </ItemGroup>
+
+</Project>

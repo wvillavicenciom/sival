@@ -1,0 +1,418 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/lib/ApexCharts/js/apexcharts.js"></script>
+    <script src="~/ClienteApp/Seguridad/Usuario/Index.js"></script>
+}
+
+@section Styles {
+
+}
+
+<div class="container-fluid p-0" ng-controller="Index">
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto d-none d-sm-block">
+            <h3>Bienvenido!!</h3>
+        </div>
+
+        <div class="col-auto ms-auto text-end mt-n1">
+
+            <div class="dropdown me-2 d-inline-block">
+                <a class="btn btn-light bg-white shadow-sm dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar align-middle mt-n1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Today
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <h6 class="dropdown-header">Settings</h6>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </div>
+
+            <button class="btn btn-primary shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter align-middle"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+            </button>
+            <button class="btn btn-primary shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-refresh-cw align-middle"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            </button>
+        </div>
+    </div>
+
+	<div class="row">
+		<!--<div class="col-12 col-sm-6 col-xxl-3 d-flex">
+			<div class="card illustration flex-fill">
+				<div class="card-body p-0 d-flex flex-fill">
+					<div class="row g-0 w-100">
+						<div class="col-6">
+							<div class="illustration-text p-3 m-1">
+								<h4 class="illustration-text">Welcome Back, Chris!</h4>
+								<p class="mb-0">AppStack Dashboard</p>
+							</div>
+						</div>
+						<div class="col-6 align-self-end text-end">
+							<img src="img/illustrations/customer-support.png" alt="Customer Support" class="img-fluid illustration-img">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		<div class="col-12 col-sm-6 col-xxl-3 d-flex">
+			<div class="card flex-fill">
+				<div class="card-body py-4">
+					<div class="d-flex align-items-start">
+						<div class="flex-grow-1">
+							<h3 class="mb-2"># {{vTotalSolicitudes}}</h3>
+							<p class="mb-2">Total Solicitudes</p>
+							<div class="mb-0">
+								<span class="badge badge-subtle-success me-2"> </span>
+								<span class="text-muted"></span>
+							</div>
+						</div>
+						<div class="d-inline-block ms-3">
+							<div class="stat">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dollar-sign" class="lucide lucide-dollar-sign align-middle text-success"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-sm-6 col-xxl-3 d-flex">
+			<div class="card flex-fill">
+				<div class="card-body py-4">
+					<div class="d-flex align-items-start">
+						<div class="flex-grow-1">
+							<h3 class="mb-2">43</h3>
+							<p class="mb-2">Pending Orders</p>
+							<div class="mb-0">
+								<span class="badge badge-subtle-danger me-2"> -4.25% </span>
+								<span class="text-muted">Since last week</span>
+							</div>
+						</div>
+						<div class="d-inline-block ms-3">
+							<div class="stat">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="shopping-bag" class="lucide lucide-shopping-bag align-middle text-danger"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-sm-6 col-xxl-3 d-flex">
+			<div class="card flex-fill">
+				<div class="card-body py-4">
+					<div class="d-flex align-items-start">
+						<div class="flex-grow-1">
+							<h3 class="mb-2">$ 18.700</h3>
+							<p class="mb-2">Total Revenue</p>
+							<div class="mb-0">
+								<span class="badge badge-subtle-success me-2"> +8.65% </span>
+								<span class="text-muted">Since last week</span>
+							</div>
+						</div>
+						<div class="d-inline-block ms-3">
+							<div class="stat">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="dollar-sign" class="lucide lucide-dollar-sign align-middle text-info"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row sparkboxes mt-4 mb-4">
+		<div class="col-md-4">
+			<div class="box box1">
+				<div id="spark1"></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box box2">
+				<div id="spark2"></div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="box box3">
+				<div id="spark3"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card flex-fill">
+		<div class="card-header">
+			<div class="card-actions float-end">
+				<div class="dropdown position-relative">
+					<a href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false" class="">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="more-horizontal" 
+						class="lucide lucide-more-horizontal align-middle"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-end">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</div>
+			</div>
+			<h5 class="card-title mb-0">Solicitudes recientes</h5>
+		</div>
+		<table class="table table-borderless my-0">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Fecha</th>
+					<th class="d-none d-xxl-table-cell">Tipo Documento</th>
+					<th class="d-none d-xl-table-cell">Documento</th>
+					<th class="d-none d-xl-table-cell">Cliente</th>
+					<th>Resultado</th>
+					<!--<th class="d-none d-xl-table-cell text-end">Action</th>-->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in taTopSolicitudes">
+					<td>
+						{{item.id_solicitud}}
+					</td>
+					<td>
+						<div class="d-flex">
+							<div class="flex-shrink-0">
+								<div class="bg-body-tertiary rounded-2">
+									<img class="p-2" src="img/brands/brand-1.svg">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-3">
+								<strong>{{item.fecha_solicitud_str}}</strong>
+								<div class="text-muted">									
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xxl-table-cell">
+						<strong>{{item.tipo_documento}}</strong>
+						<div class="text-muted">							
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>{{item.documento}}</strong>
+						<div class="text-muted">							
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>{{item.cliente}}</strong>
+						<div class="text-muted">							
+						</div>
+					</td>
+					<td>
+						<div class="d-flex flex-column w-100">
+							<span class="me-2 mb-1 text-muted">{{item.resultado_evaluacion}}</span>
+							<div class="progress progress-sm w-100">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 65%;"></div>
+							</div>
+						</div>
+					</td>
+					<!--<td class="d-none d-xl-table-cell text-end">
+						<a href="#" class="btn btn-light">View</a>
+					</td>-->
+				</tr>
+			<!--	<tr>
+					<td>
+						<div class="d-flex">
+							<div class="flex-shrink-0">
+								<div class="bg-body-tertiary rounded-2">
+									<img class="p-2" src="img/brands/brand-2.svg">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-3">
+								<strong>Project Bongo</strong>
+								<div class="text-muted">
+									Web
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xxl-table-cell">
+						<strong>Adray Transportation</strong>
+						<div class="text-muted">
+							Transportation
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>Bertha Martin</strong>
+						<div class="text-muted">
+							HTML, JS, Vue
+						</div>
+					</td>
+					<td>
+						<div class="d-flex flex-column w-100">
+							<span class="me-2 mb-1 text-muted">33%</span>
+							<div class="progress progress-sm w-100">
+								<div class="progress-bar bg-danger" role="progressbar" style="width: 33%;"></div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell text-end">
+						<a href="#" class="btn btn-light">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="d-flex">
+							<div class="flex-shrink-0">
+								<div class="bg-body-tertiary rounded-2">
+									<img class="p-2" src="img/brands/brand-3.svg">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-3">
+								<strong>Project Canary</strong>
+								<div class="text-muted">
+									Web, UI/UX Design
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xxl-table-cell">
+						<strong>Evans</strong>
+						<div class="text-muted">
+							Insurance
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>Stacie Hall</strong>
+						<div class="text-muted">
+							HTML, JS, Laravel
+						</div>
+					</td>
+					<td>
+						<div class="d-flex flex-column w-100">
+							<span class="me-2 mb-1 text-muted">50%</span>
+							<div class="progress progress-sm w-100">
+								<div class="progress-bar bg-warning" role="progressbar" style="width: 50%;"></div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell text-end">
+						<a href="#" class="btn btn-light">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="d-flex">
+							<div class="flex-shrink-0">
+								<div class="bg-body-tertiary rounded-2">
+									<img class="p-2" src="img/brands/brand-4.svg">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-3">
+								<strong>Project Edison</strong>
+								<div class="text-muted">
+									UI/UX Design
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xxl-table-cell">
+						<strong>Monsource Investment Group</strong>
+						<div class="text-muted">
+							Finance
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>Carl Jenkins</strong>
+						<div class="text-muted">
+							HTML, JS, React
+						</div>
+					</td>
+					<td>
+						<div class="d-flex flex-column w-100">
+							<span class="me-2 mb-1 text-muted">80%</span>
+							<div class="progress progress-sm w-100">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 80%;"></div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell text-end">
+						<a href="#" class="btn btn-light">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="d-flex">
+							<div class="flex-shrink-0">
+								<div class="bg-body-tertiary rounded-2">
+									<img class="p-2" src="img/brands/brand-5.svg">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-3">
+								<strong>Project Indigo</strong>
+								<div class="text-muted">
+									Web, UI/UX Design
+								</div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xxl-table-cell">
+						<strong>Edwards</strong>
+						<div class="text-muted">
+							Retail
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell">
+						<strong>Ashley Briggs</strong>
+						<div class="text-muted">
+							HTML, JS, Vue
+						</div>
+					</td>
+					<td>
+						<div class="d-flex flex-column w-100">
+							<span class="me-2 mb-1 text-muted">78%</span>
+							<div class="progress progress-sm w-100">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: 78%;"></div>
+							</div>
+						</div>
+					</td>
+					<td class="d-none d-xl-table-cell text-end">
+						<a href="#" class="btn btn-light">View</a>
+					</td>
+				</tr>
+			-->
+			
+			</tbody>
+		</table>
+	</div>
+
+   
+    <div class="row mt-5 mb-4">
+		<div class="col-md-6">
+			<div class="box">
+				<div id="donut"></div>
+			</div>
+		</div>
+		<div class="col-md-6">
+            <div class="box">
+                <div id="bar"></div>
+            </div>
+        </div>        
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class="col-md-6">
+            <div class="box">
+                <div id="gRechazos"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+                <div id="line"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIVAL.Administracion.BE\SIVAL.Administracion.BE.csproj" />
+    <ProjectReference Include="..\SIVAL.Administracion.DO\SIVAL.Administracion.DO.csproj" />
+  </ItemGroup>
+
+</Project>

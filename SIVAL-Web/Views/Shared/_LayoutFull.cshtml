@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en" data-bs-theme="light" data-layout="fluid" data-sidebar-theme="dark" data-sidebar-position="left" data-sidebar-behavior="sticky">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Migrante - Sistema Evaluación</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/AppStack.css" />
+    <link href="~/lib/jsLoader/css/jquery.loader.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/Toastr/css/toastr.css" />
+</head>
+<body ng-app="CollFly">
+    <header class="navbar navbar-expand-lg navbar-dark">
+    </header>
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2022 - VM </p>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap-4.4/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/Toastr/js/toastr.js"></script>
+    <script src="~/lib/Bootbox/js/bootbox.js"></script>
+    <script src="~/lib/Bootbox/js/alert.js"></script>
+    <script src="~/lib/Moment/js/moment.min.js"></script>
+    <script src="~/lib/jsLoader/js/jquery.loader.js"></script>
+
+    <script src="~/js/Angular/angular.js"></script>
+    <script src="~/js/Angular/angular-resource.js"></script>
+    <script src="~/js/ClienteApp/app.js"></script>
+    <script src="~/js/ClienteApp/Messages.js"></script>
+    <script src="~/js/ClienteApp/Services.js"></script>
+    <script src="~/js/ClienteApp/Directives.js"></script>
+    <script src="~/js/ClienteApp/Filters.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\98.Generico\SIVAL.Generico.BE\SIVAL.Generico.BE.csproj" />
+    <ProjectReference Include="..\SIVAL.Seguridad.BE\SIVAL.Seguridad.BE.csproj" />
+    <ProjectReference Include="..\SIVAL.Seguridad.BL\SIVAL.Seguridad.BL.csproj" />
+  </ItemGroup>
+
+</Project>

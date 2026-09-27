@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewData["Title"] = "Evaluar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/ClienteApp/Comercial/Solicitud/Evaluar.js"></script>
+}
+
+<div class="container-fluid p-0" ng-controller="Evaluar">
+
+    <div class="row">
+        
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        Nueva Evaluación Crediticia
+                    </h3>
+                    <h5 class="card-title mb-0"> Complete los datos del cliente para generar una evaluación crediticia</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">                        
+                        <div class="mb-2 col-md-6">
+                            <label for="ddlTipoDocumento" class="form-label">Tipo Documento</label>
+                            <select class="form-control" ng-model="ddlTipoDocumento" ng-options="item as item.nombre for item in oListaTipoDocumento" ng-disabled="ddlTipoDocumento_Disable"></select>
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <label for="txtDocumento" class="form-label">Documento</label>
+                            <input type="text" class="form-control" id="txtDocumento" ng-model="txtDocumento" placeholder="??????" maxlength="50" ng-disabled="txtDocumento_Disable">
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <label for="txtApellidoPaterno" class="form-label">Apellido Paterno</label>
+                            <input type="text" class="form-control" id="txtApellidoPaterno" ng-model="txtApellidoPaterno" placeholder="??????" maxlength="50" ng-disabled="txtApellidoPaterno_Disable">
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <label for="txtApellidoMaterno" class="form-label">Apellido Materno</label>
+                            <input type="text" class="form-control" id="txtApellidoMaterno" ng-model="txtApellidoMaterno" placeholder="??????" maxlength="50" ng-disabled="txtApellidoMaterno_Disable">
+                        </div>
+                        <div class="mb-2 col-md-12">
+                            <label for="txtNombres" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="txtNombres" ng-model="txtNombres" placeholder="??????" ng-disabled="txtNombres_Disable">
+                        </div>
+
+
+                        <div class="mb-2 col-md-6">
+                            <label for="txtFechaNacimiento" class="form-label">Fecha Nacimiento</label>
+                            <input type="date" class="form-control" id="txtFechaNacimiento" ng-model="txtFechaNacimiento" placeholder="??????" ng-disabled="txtFechaNacimiento_Disable">
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <label for="ddlGenero" class="form-label">Genero</label>
+                            <select class="form-control" ng-model="ddlGenero" ng-options="item as item.nombre for item in oListaGenero" ng-disabled="ddlGenero_Disable"></select>
+                        </div>
+
+                        <div class="mb-2 col-md-6">
+                            <label for="ddlActividadEconomica" class="form-label">Actividad Económica</label>
+                            <select class="form-control" ng-model="ddlActividadEconomica" ng-options="item as item.nombre for item in oListaActividadEconomica" ng-disabled="ddlActividadEconomica_Disable"></select>
+                        </div>
+                        <div class="mb-2 col-md-6">
+                            <label for="ddlConvenio" class="form-label">Convenio</label>
+                            <select class="form-control" ng-model="ddlConvenio" ng-options="item as item.nombre for item in oListaConvenio" ng-disabled="ddlConvenio_Disable"></select>
+                        </div>
+
+                        <div class="mb-2 col-md-6">
+                            <label for="ddlDepartamento" class="form-label">Departamento</label>
+                            <select class="form-control" ng-model="ddlDepartamento" ng-options="item as item.nombre for item in oListaDepartamento" ng-disabled="ddlDepartamento_Disable"></select>
+                        </div>
+                        <div class="mb-2 col-md-12">
+                            <label for="txtNroCreditos" class="form-label">N° Créditos</label>
+                            <input type="text" class="form-control" id="txtNroCreditos" ng-model="txtNroCreditos" placeholder="#####" ng-disabled="txtNroCreditos_Disable">
+                        </div>
+
+                        <div class="mb-3  col-md-6">
+                            <label for="" class="form-label"></label>
+                            <button type="button" class="btn btn-primary form-control" ng-click="btnEvaluar()" ng-disabled="btnEvaluar_Disable">Evaluar Cliente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3" id="dvSinEval">
+            <div class="bg-card rounded-xl border border-border shadow-sm p-6 text-center" data-fg-d3bl275="0.8:1.67295:/src/app/App.tsx:677:13:37582:570:e:div:etete" data-fgid-d3bl275=":r9j:">
+                <div class="w-14 h-14 rounded-full bg-muted mx-auto mb-4 flex items-center justify-center" data-fg-d3bl276="0.8:1.67295:/src/app/App.tsx:678:15:37680:187:e:div:e" data-fgid-d3bl276=":r9k:">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                    class="lucide lucide-file-text w-7 h-7 text-muted-foreground" data-fg-d3bl277="0.8:1.67295:node_modules/lucide-react:679:17:37792:54:e:FileText::::::B1i5" data-fgid-d3bl277=":r9l:">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path>
+                </svg>
+                </div>
+                <p class="text-sm font-semibold text-foreground mb-1.5" data-fg-d3bl278="0.8:1.67295:/src/app/App.tsx:681:15:37882:82:e:p:t" data-fgid-d3bl278=":r9m:">Sin evaluación aún</p>
+                <p class="text-xs text-muted-foreground leading-relaxed" data-fg-d3bl280="0.8:1.67295:/src/app/App.tsx:682:15:37979:154:e:p:t" data-fgid-d3bl280=":r9n:">Complete el formulario y presione "Evaluar Cliente" para obtener el resultado crediticio.</p>
+            </div>
+        </div>
+        <div class="col-xl-3" id="dvResultado">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resultado de evaluación</h5>
+                    
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        @* <div id="chart" style="padding: 0; max-width: 380px;  margin: 35px auto;"></div> *@
+                        <div style="padding: 0; max-width: 380px;  margin: 35px auto;text-align:center">
+                            <h5 class="card-title mb-0">Segmento</h5>
+                            <span id="hdSegmento" style="font-size:5rem;border-radius:0.5rem">&nbsp;&nbsp;{{Segmento}}&nbsp;&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="text-muted">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="user" class="lucide lucide-user align-middle me-2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <span class="align-middle">PD Estimada :</span>
+
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">
+                                <span id="resultado_eval" class="align-middle">{{PDEstimada}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary form-control" ng-click="btnNuevaEvaluacion()">Nueva Evaluación</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+ 
+</div>
