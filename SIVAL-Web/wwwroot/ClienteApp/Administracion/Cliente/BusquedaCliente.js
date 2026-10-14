@@ -43,9 +43,6 @@ AppCollFly.controller("BusquedaCliente", ['$scope', 'Message', 'MsgData', 'Call'
 
         $scope.EstablecerClientes = function (response) {
 
-            //console.log("Clientes Encontrados");
-            //console.log(response);
-
             $scope.oCliente_Sel = response[0];
             
             var taClientes =  $('#taClientes').DataTable({

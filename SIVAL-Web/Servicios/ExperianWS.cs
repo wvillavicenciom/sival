@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SIVAL.Generico.BE;
+using SIVAL.Generico.SL;
 using System;
 using System.Reflection.Metadata.Ecma335;
 
@@ -37,22 +39,34 @@ namespace SIVAL_Web.Servicios
                 {
                     String rs = await response.Content.ReadAsStringAsync();
                     oRsExperianAuth = JsonConvert.DeserializeObject<RsExperianAuth>(rs);
+                    oRsExperianAuth.status = 200;
+                    oRsExperianAuth.msg = "Autenticación correcta";
                 }
             }
             catch (Exception ex)
             {
                 //Registrando log con el error ocurrido
                 var error = ex.ToString();
-                //Log.WhriteLogException(error, Constantes.strCapaDO, "UsuarioDO.ValidarInicio");
+                LogBE oLogBE = new LogBE();
+                oLogBE.modulo = "ExperianWS";
+                oLogBE.sub_modulo = "AutenticarAsync";
+                oLogBE.opcion = "AutenticarAsync";
+                oLogBE.tipo = 1;
+                oLogBE.error = "Error Método AutenticarAsync";
+                oLogBE.descripcion = ex.ToString();
+                LogSL.Registrar(oLogBE);
                 oRsExperianAuth.expires_in = "0";
+                oRsExperianAuth.status = 500;
+                oRsExperianAuth.msg = error;
             }
 
 
             return oRsExperianAuth;
         }
 
-        public async Task<string> ObtenerDatosAsync(String Tokend, String TipoDocumento, String Documento)
+        public async Task<RsHistorial> ObtenerDatosAsync(String Tokend, String TipoDocumento, String Documento)
         {
+            RsHistorial oRsHistorial = new RsHistorial();
             String vJsonHistorial = "";
             try
             {
@@ -81,11 +95,23 @@ namespace SIVAL_Web.Servicios
                 if (response.IsSuccessStatusCode)
                 {
                     vJsonHistorial = await response.Content.ReadAsStringAsync();
+                    oRsHistorial.status = 200;
+                    oRsHistorial.result = vJsonHistorial;
+                    oRsHistorial.msg = "Datos Obtenidos Correctamente";
                 }
                 else
                 {
-                    //registrando log con el status del servicio
-                    string errorBody = await response.Content.ReadAsStringAsync();
+                    oRsHistorial.status = 400;
+                    oRsHistorial.result = "";
+                    oRsHistorial.msg = "No se obtuvieron datos";
+                    LogBE oLogBE = new LogBE();
+                    oLogBE.modulo = "ExperianWS";
+                    oLogBE.sub_modulo = "ObtenerDatosAsync";
+                    oLogBE.opcion = "ObtenerDatosAsync";
+                    oLogBE.tipo = 1;
+                    oLogBE.error = "Error al obtener historial";
+                    oLogBE.descripcion = await response.Content.ReadAsStringAsync();
+                    LogSL.Registrar(oLogBE);
                 }               
 
             }
@@ -93,9 +119,20 @@ namespace SIVAL_Web.Servicios
             {
                 //Registrando log con el error ocurrido
                 var error = ex.ToString();
+                LogBE oLogBE = new LogBE();
+                oLogBE.modulo = "ExperianWS";
+                oLogBE.sub_modulo = "ObtenerDatosAsync";
+                oLogBE.opcion = "ObtenerDatosAsync";
+                oLogBE.tipo = 1;
+                oLogBE.error = "Error Método ObtenerDatosAsync";
+                oLogBE.descripcion = ex.ToString();
+                LogSL.Registrar(oLogBE);
+                oRsHistorial.status = 500;
+                oRsHistorial.result = "";
+                oRsHistorial.msg = error;
             }
 
-            return vJsonHistorial;
+            return oRsHistorial;
 
         }
     }
@@ -104,9 +141,20 @@ namespace SIVAL_Web.Servicios
 
 public class RsExperianAuth
 {
+    public Int32 status;
+    public String msg;
     public String issued_at;
     public String expires_in;
     public String token_type;
     public String access_token;
     public String refresh_token;
+}
+
+
+
+public class RsHistorial
+{
+    public Int32 status;
+    public String msg;
+    public String result;
 }

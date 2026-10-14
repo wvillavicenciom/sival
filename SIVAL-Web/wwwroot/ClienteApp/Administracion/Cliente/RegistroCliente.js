@@ -291,7 +291,6 @@ AppCollFly.controller("RegistroCliente", ['$scope', 'Message', 'MsgData', 'Call'
 
         $scope.btnCargarDistritoDireccion = function (pIdDepartamento, pIdProvincia) {
 
-            console.log("Caegando provincias");
 
             var vIdDepartamento = 0; 
             var vIdProvincia = 0;

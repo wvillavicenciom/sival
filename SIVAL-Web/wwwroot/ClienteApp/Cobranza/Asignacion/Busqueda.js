@@ -86,8 +86,6 @@ AppCollFly.controller("BusquedaAsignaciones", ['$scope', 'Message', 'MsgData', '
 
                 $('#taAsignaciones tbody').on('click', 'a', function () {
                     var data = taGestores.row($(this).parents('tr')).data();
-                    console.log("data");
-                    console.log(data);
                     $scope.MostrarEditarGestor(data);
                     $("#moAsignacion").modal('show');
 

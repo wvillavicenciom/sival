@@ -129,18 +129,18 @@ namespace SIVAL.Comercial.DO
                     new GParametrosBE() {pParName = "@APELLIDO_MATERNO", pValue = pSolicitudBE.apellido_materno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "@NOMBRES", pValue = pSolicitudBE.nombres, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "@FECHA_NACIMIENTO", pParValueDateTime = pSolicitudBE.fecha_nacimiento, pTypeSQLServer = DbType.DateTime},
-                    new GParametrosBE() {pParName = "@ID_CATEGORIA_LABORAL", pValue = pSolicitudBE.i003_categoria_laboral, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@MTO_INGRESO_BRUTO", pValue = pSolicitudBE.mto_ingreso_bruto, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@FECHA_INGRESO_LABORAL", pParValueDateTime = pSolicitudBE.fecha_ingreso_laboral, pTypeSQLServer = DbType.DateTime},
-                    new GParametrosBE() {pParName = "@TELEFONO", pValue = pSolicitudBE.telefono, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@CORREO", pValue = pSolicitudBE.correo, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@ID_DEPARTAMENTO", pValue = pSolicitudBE.id_departamento, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@ID_PROVINCIA", pValue = pSolicitudBE.id_provincia, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@ID_DISTRITO", pValue = pSolicitudBE.id_distrito, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@DIRECCION", pValue = pSolicitudBE.direccion, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@REFERENCIA", pValue = pSolicitudBE.referencia, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "@ID_MARCA", pValue = pSolicitudBE.id_marca, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@ID_MARCA_MODELO", pValue = pSolicitudBE.id_marca_modelo, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@ID_CATEGORIA_LABORAL", pValue = pSolicitudBE.i003_categoria_laboral, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@MTO_INGRESO_BRUTO", pValue = pSolicitudBE.mto_ingreso_bruto, pTypeSQLServer = DbType.Decimal},
+                    //new GParametrosBE() {pParName = "@FECHA_INGRESO_LABORAL", pParValueDateTime = pSolicitudBE.fecha_ingreso_laboral, pTypeSQLServer = DbType.DateTime},
+                    //new GParametrosBE() {pParName = "@TELEFONO", pValue = pSolicitudBE.telefono, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@CORREO", pValue = pSolicitudBE.correo, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_DEPARTAMENTO", pValue = pSolicitudBE.id_departamento, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_PROVINCIA", pValue = pSolicitudBE.id_provincia, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_DISTRITO", pValue = pSolicitudBE.id_distrito, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@DIRECCION", pValue = pSolicitudBE.direccion, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@REFERENCIA", pValue = pSolicitudBE.referencia, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_MARCA", pValue = pSolicitudBE.id_marca, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@ID_MARCA_MODELO", pValue = pSolicitudBE.id_marca_modelo, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "@USUARIO", pValue = pSolicitudBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };
 
@@ -211,10 +211,10 @@ namespace SIVAL.Comercial.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "@ID_SOLICITUD", pValue = pSolicitudBE.id_solicitud, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@PRECIO_BIEN", pValue = pSolicitudBE.mto_precio_bien, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@INICIAL_BIEN", pValue = pSolicitudBE.mto_inicial_bien, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@ID_SEGURO_BIEN", pValue = pSolicitudBE.i008_seguro_bien, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@PORC_SEGURO_BIEN", pValue = pSolicitudBE.porc_seguro_bien, pTypeSQLServer = DbType.Decimal},
+                    //new GParametrosBE() {pParName = "@PRECIO_BIEN", pValue = pSolicitudBE.mto_precio_bien, pTypeSQLServer = DbType.Decimal},
+                    //new GParametrosBE() {pParName = "@INICIAL_BIEN", pValue = pSolicitudBE.mto_inicial_bien, pTypeSQLServer = DbType.Decimal},
+                    //new GParametrosBE() {pParName = "@ID_SEGURO_BIEN", pValue = pSolicitudBE.i008_seguro_bien, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@PORC_SEGURO_BIEN", pValue = pSolicitudBE.porc_seguro_bien, pTypeSQLServer = DbType.Decimal},
                     new GParametrosBE() {pParName = "@USUARIO", pValue = pSolicitudBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };
 
@@ -285,6 +285,7 @@ namespace SIVAL.Comercial.DO
                 {
                     new GParametrosBE() {pParName = "@ID_SOLICITUD", pValue = pSolicitudBE.id_solicitud, pTypeSQLServer = DbType.Decimal},
                     new GParametrosBE() {pParName = "@EXPERIAN_JSON", pValue = pSolicitudBE.jsHistoricoExperian, pTypeSQLServer = DbType.String},
+                    new GParametrosBE() {pParName = "@EXPERIAN_ERROR", pValue = pSolicitudBE.errorHistoricoExperian, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "@USUARIO", pValue = pSolicitudBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };
 
@@ -308,9 +309,9 @@ namespace SIVAL.Comercial.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "@ID_SOLICITUD", pValue = pSolicitudBE.id_solicitud, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@ID_RESULTADO_VALIDACION", pValue = pSolicitudBE.i004_resultado_eval_validador, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@ID_MOTIVO_VALIDACION", pValue = pSolicitudBE.i005_motivo_eval_validador, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@COMENTARIO_VALIDACION", pValue = pSolicitudBE.comentario_eval_validador, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_RESULTADO_VALIDACION", pValue = pSolicitudBE.i004_resultado_eval_validador, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@ID_MOTIVO_VALIDACION", pValue = pSolicitudBE.i005_motivo_eval_validador, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@COMENTARIO_VALIDACION", pValue = pSolicitudBE.comentario_eval_validador, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "@USUARIO", pValue = pSolicitudBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };
 
@@ -334,9 +335,9 @@ namespace SIVAL.Comercial.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "@ID_SOLICITUD", pValue = pSolicitudBE.id_solicitud, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "@ID_RESULTADO_EVALUACION", pValue = pSolicitudBE.i004_resultado_eval_analista, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@ID_MOTIVO_EVALUACION", pValue = pSolicitudBE.i005_motivo_eval_analista, pTypeSQLServer = DbType.Int32},
-                    new GParametrosBE() {pParName = "@COMENTARIO_EVALUACION", pValue = pSolicitudBE.comentario_eval_analista, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "@ID_RESULTADO_EVALUACION", pValue = pSolicitudBE.i004_resultado_eval_analista, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@ID_MOTIVO_EVALUACION", pValue = pSolicitudBE.i005_motivo_eval_analista, pTypeSQLServer = DbType.Int32},
+                    //new GParametrosBE() {pParName = "@COMENTARIO_EVALUACION", pValue = pSolicitudBE.comentario_eval_analista, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "@USUARIO", pValue = pSolicitudBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };
 

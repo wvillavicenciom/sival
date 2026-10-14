@@ -44,6 +44,14 @@ AppSIVAL.controller("Profile", ['$scope', 'Message', 'MsgData', 'Call', 'Moment'
                 vgPerfil = response.dato_b;
             }
 
+            if (vgPerfil == 4) {
+                $scope.urlUsuario = "/Seguridad/Usuario/Busqueda";
+            } else {
+                $scope.urlUsuario = "#";
+            }         
+            
+
+            /*
             //var ul = document.getElementById("ulAdmision");
             if (vgPerfil == 68 || vgPerfil == 69) {
                 $scope.oModuloAdmisionOpciones = [{ url: "/Admision/MesaCredito/Busqueda", nombre: "Búsqueda" }, { url: "/Admision/MesaCredito/Bandeja", nombre: "Bandeja" }];
@@ -66,6 +74,7 @@ AppSIVAL.controller("Profile", ['$scope', 'Message', 'MsgData', 'Call', 'Moment'
                 var ul = document.getElementById("Configuracion");
                 //ul.classList.add('show');
             }
+            */
 
 
             $scope.$apply();

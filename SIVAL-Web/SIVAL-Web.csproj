@@ -21,17 +21,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.11" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.17" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Administracion\Models\" />
     <Folder Include="Areas\Admision\Data\" />
     <Folder Include="Areas\Admision\Models\" />
-    <Folder Include="Areas\Comercial\Models\" />
     <Folder Include="Areas\Operaciones\Data\" />
     <Folder Include="Areas\Operaciones\Models\" />
-    <Folder Include="Areas\Seguridad\Models\" />
     <Folder Include="wwwroot\ClienteApp\Operaciones\Procesos\" />
   </ItemGroup>
 

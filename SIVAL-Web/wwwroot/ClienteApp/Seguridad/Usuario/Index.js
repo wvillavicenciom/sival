@@ -5,6 +5,24 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
 
         $scope.NameController = "/Seguridad/Usuario";
 
+        var colorTextoSA = 'white';
+        var colorFondoSA = '#06964E';
+
+        var colorTextoSB = 'white';
+        var colorFondoSB = '#36C738';
+
+        var colorTextoSC = 'white';
+        var colorFondoSC = '#6B756B';
+
+        var colorTextoSD = 'white';
+        var colorFondoSD = '#EB7907';
+
+        var colorTextoSE = 'white';
+        var colorFondoSE = '#EB1E07';
+
+        var colorTextoSNA = 'black';
+        var colorFondoSNA = '#fce8e6'; 
+
         //inicializando las variables del gráfico
         Apex.grid = {
             padding: {
@@ -38,7 +56,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
         var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46];
 
         // the default colorPalette for this dashboard
-        //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
         var colorPalette = ['#00d869', '#d84500', '#8a867e', '#d11430', '#6b4ed0']
 
         $scope.spark1 = {
@@ -363,9 +380,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
             //new ApexCharts(document.querySelector("#spark2"), $scope.spark2).render();
             //new ApexCharts(document.querySelector("#spark3"), $scope.spark3).render();
 
-            //console.log("Test")
-            //console.log([...Array(24).keys()].map(n => `2018-09-0${n + 1}`));
-
             Loading.LoadingShow("Iniciando Sesión, por favor espere!");
 
             var parametros = {
@@ -391,10 +405,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
 
 
         $scope.EstablecerDatos = function (response) {
-
-           //console.log("Respuesta");
-           //console.log(response);
-
 
            //obteniendo la cantidad de solicitudes
             $scope.oListaSolicitudes = response;       
@@ -474,8 +484,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
 
 
             //actualizando los datos de las barras
-            console.log("optionsBar");
-            console.log($scope.optionsBar);
             $scope.optionsBar.series[0].data = $scope.oListaSegA_data;
             $scope.optionsBar.series[1].data = $scope.oListaSegB_data;
             $scope.optionsBar.series[2].data = $scope.oListaSegC_data;
@@ -498,16 +506,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
 
         $scope.EstablecerReporteRechazo = function (response) {
 
-            console.log("Respuesta");
-            console.log(response);
-
-            //agrupando
-
-            /*$scope.oListaMotivos = Object.groupBy(response, ({ motivo }) => motivo);
-
-            console.log("Agrupado");
-            console.log($scope.oListaMotivos);*/
-
             $scope.oListaMotivos = [];
 
             angular.forEach(response, function (item) {
@@ -528,9 +526,6 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
                 }
             });
 
-            console.log("Lista Final");
-            console.log($scope.oListaMotivos);
-
             var oListaCategorias = [];
             var oListaData = [];
 
@@ -550,8 +545,171 @@ AppSIVAL.controller("Index", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
         $scope.EstablecerTopSolicitudes = function (response) {
 
             $scope.cant_registros_busqueda = response.length;
+            var taSolicitudes;
 
-            $scope.taTopSolicitudes = response;
+            if ($.fn.dataTable.isDataTable('#taSolicitudes')) {
+                $('#taSolicitudes').dataTable().fnClearTable();
+                $('#taSolicitudes').dataTable().fnAddData(response);
+            } else {
+
+                // Aseguramos que sea un array e ignoramos cualquier fila que sea "null" o indefinida.
+                let dataLimpia = (response || []).filter(fila => fila != null);
+
+                // 2. LIMPIEZA DE HTML: 
+                // Borramos cualquier <tr> "fantasma" que haya quedado en tu vista HTML.
+                $('#taSolicitudes tbody').empty();
+
+                // 3. DESTRUCCIÓN PREVIA (Opcional pero recomendado):
+                // Si estás intentando recargar la tabla con nuevos datos, primero debemos destruirla.
+                if ($.fn.DataTable.isDataTable('#taSolicitudes')) {
+                    $('#taSolicitudes').DataTable().clear().destroy();
+                }
+
+                taSolicitudes = $('#taSolicitudes').DataTable({
+                    data: dataLimpia,
+                    responsive: true,
+                    searching: false,
+                    paging : false,
+                    select: true,
+                    buttons: [
+                        'copy', 'excel', 'pdf'
+                    ],
+                    columns: [
+                        { data: 'id_solicitud', "defaultContent": "" },
+                        { data: 'fecha_solicitud_str', "defaultContent": "" },
+                        { data: 'tipo_documento', "defaultContent": "" },
+                        { data: 'documento', "defaultContent": "" },
+                        { data: 'cliente', "defaultContent": "" },
+                        { data: 'segmento', "defaultContent": "" },
+                        { data: 'pd_estimada', "defaultContent": "" }
+                    ],
+                    "columnDefs": [
+                        {
+                            // Indicamos el índice de la columna (empieza en 0, el 2 sería la tercera columna)
+                            "targets": 5,
+                            "render": function (data, type, row) {
+                                // Si DataTables está solicitando el dato para mostrarlo en pantalla ('display')
+                                if (type === 'display') {
+                                    let colorTexto = '';
+                                    let colorFondo = '';
+
+                                    // Lógica para asignar el color
+                                    if (data === 'A') {
+                                        colorTexto = colorTextoSA;
+                                        colorFondo = colorFondoSA;
+                                    } else if (data === 'B') {
+                                        colorTexto = colorTextoSB;
+                                        colorFondo = colorFondoSB;
+                                    }
+                                    else if (data === 'C') {
+                                        colorTexto = colorTextoSC;
+                                        colorFondo = colorFondoSC;
+                                    }
+                                    else if (data === 'D') {
+                                        colorTexto = colorTextoSD;
+                                        colorFondo = colorFondoSD;
+                                    }
+                                    else if (data === 'E') {
+                                        colorTexto = colorTextoSE;
+                                        colorFondo = colorFondoSE;
+                                    }
+                                    else {
+                                        colorTexto = colorTextoSNA;
+                                        colorFondo = colorFondoSNA;
+                                    }
+
+                                    // Retornamos el valor envuelto en un span con el color
+                                    return `<span style="background-color: ${colorFondo}; color: ${colorTexto}; padding: 4px 8px; border-radius: 4px; font-weight: bold;">${data}</span>`;
+                                }
+                                // Para otros tipos (ordenamiento, búsqueda), devolvemos el dato original sin HTML
+                                return data;
+                            }
+                        }
+                    ]
+                });
+
+                taSolicitudes.on('select', function (e, dt, type, indexes) {
+
+                    if (type === 'row') {
+                        var data = taSolicitudes.rows(indexes).data()[0];
+
+                        $scope.Resultado_Sel = "";
+                        $scope.Cliente_sel = "";
+                        $scope.TipoDocumento_Sel = "";
+                        $scope.Documento_Sel = "";
+                        $scope.FechaNacimiento_Sel = "";
+                        $scope.Genero_Sel = "";
+                        $scope.ActividadEconomica_Sel = "";
+                        $scope.Convenio_Sel = "";
+                        $scope.Departamento_Sel = "";
+                        $scope.NroCreditos_Sel = "";
+
+                        // 1. Seleccionar el elemento HTML por su ID
+                        const elementoOffcanvas = document.getElementById('panelDerecho');
+
+                        // 2. Crear la instancia de Bootstrap asociada a ese elemento
+                        const miPanelDerecho = new bootstrap.Offcanvas(elementoOffcanvas);
+
+                        // 3. Método para abrir el panel
+                        miPanelDerecho.show();
+                        /*var score = data.puntaje_score;
+                        var color = score < 500 ? '#FF0000' : '#00FF00';
+                        chart.updateOptions({
+                            series: [score],
+                            colors: [color]
+                        });*/
+
+                        let colorTexto = '';
+                        let colorFondo = '';
+
+                        // Lógica para asignar el color
+                        if (data.segmento === 'A') {
+                            colorTexto = colorTextoSA;
+                            colorFondo = colorFondoSA;
+                        } else if (data.segmento === 'B') {
+                            colorTexto = colorTextoSB;
+                            colorFondo = colorFondoSB;
+                        }
+                        else if (data.segmento === 'C') {
+                            colorTexto = colorTextoSC;
+                            colorFondo = colorFondoSC;
+                        }
+                        else if (data.segmento === 'D') {
+                            colorTexto = colorTextoSD;
+                            colorFondo = colorFondoSD;
+                        }
+                        else if (data.segmento === 'E') {
+                            colorTexto = colorTextoSE;
+                            colorFondo = colorFondoSE;
+                        }
+                        else {
+                            colorTexto = colorTextoSNA;
+                            colorFondo = colorFondoSNA;
+                        }
+
+                        $('#hdSegmento').css({
+                            'background-color': colorFondo,
+                            'color': colorTexto
+                        });
+
+                        $scope.Segmento_Sel = data.segmento;
+                        var pd = data.pd_estimada * 100;
+                        $scope.PDEstimada_Sel = parseFloat(pd.toFixed(2)) + "%";
+                        $scope.Cliente_sel = data.cliente;
+                        $scope.TipoDocumento_Sel = data.tipo_documento;
+                        $scope.Documento_Sel = data.documento;
+                        $scope.FechaNacimiento_Sel = data.fecha_nacimiento;
+                        $scope.Genero_Sel = data.genero;
+                        $scope.ActividadEconomica_Sel = data.actividad_economica;
+                        $scope.Convenio_Sel = data.convenio;
+                        $scope.Departamento_Sel = data.departamento;
+                        $scope.NroCreditos_Sel = data.nro_creditos;
+                        $scope.$apply();
+                    }
+
+
+                });
+            }
 
         }
 

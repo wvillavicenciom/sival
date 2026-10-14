@@ -40,12 +40,12 @@ namespace SIVAL.Seguridad.DO
             {
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
-                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i002_tipo_documento, pTypeSQLServer = DbType.Int32},
+                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i003_tipo_documento, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "DOCUMENTO", pValue = pUsuarioBE.documento, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APELLIDO_PATERNO", pValue = pUsuarioBE.apellido_paterno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APELLIDO_MATERNO", pValue = pUsuarioBE.apellido_materno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "NOMBRES", pValue = pUsuarioBE.nombres, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i009_tipo_usuario, pTypeSQLServer = DbType.Int32},
+                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i002_tipo_usuario, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "USUARIO", pValue = pUsuarioBE.usuario, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "CLAVE", pValue = pUsuarioBE.clave, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "FLAG_ACTIVO", pValue = pUsuarioBE.flag_activo, pTypeSQLServer = DbType.Boolean},
@@ -73,12 +73,12 @@ namespace SIVAL.Seguridad.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "ID_USUARIO", pValue = pUsuarioBE.id_usuario, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i002_tipo_documento, pTypeSQLServer = DbType.Int32},
+                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i003_tipo_documento, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "DOCUMENTO", pValue = pUsuarioBE.documento, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APELLIDO_PATERNO", pValue = pUsuarioBE.apellido_paterno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APELLIDO_MATERNO", pValue = pUsuarioBE.apellido_materno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "NOMBRES", pValue = pUsuarioBE.nombres, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i009_tipo_usuario, pTypeSQLServer = DbType.Int32},
+                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i002_tipo_usuario, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "USUARIO", pValue = pUsuarioBE.usuario, pTypeSQLServer = DbType.String},
                     //new GParametrosBE() {pParName = "CLAVE", pValue = pUsuarioBE.clave, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "FLAG_ACTIVO", pValue = pUsuarioBE.flag_activo, pTypeSQLServer = DbType.Boolean},
@@ -129,12 +129,12 @@ namespace SIVAL.Seguridad.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "USUARIO", pValue = pUsuarioBE.usuario, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i002_tipo_documento, pTypeSQLServer = DbType.Int32},
+                    new GParametrosBE() {pParName = "ID_TIPO_DOCUMENTO", pValue = pUsuarioBE.i003_tipo_documento, pTypeSQLServer = DbType.Int32},
                     new GParametrosBE() {pParName = "DOCUMENTO", pValue = pUsuarioBE.documento, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "NOMBRES", pValue = pUsuarioBE.nombres, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APE_PATERNO", pValue = pUsuarioBE.apellido_paterno, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "APE_MATERNO", pValue = pUsuarioBE.apellido_materno, pTypeSQLServer = DbType.String},
-                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i009_tipo_usuario, pTypeSQLServer = DbType.Int32}
+                    new GParametrosBE() {pParName = "ID_TIPO_USUARIO", pValue = pUsuarioBE.i002_tipo_usuario, pTypeSQLServer = DbType.Int32}
                 };
 
                 ConexionDA conexionDA = new ConexionDA();
@@ -179,7 +179,7 @@ namespace SIVAL.Seguridad.DO
                 List<GParametrosBE> oParametros = new List<GParametrosBE>()
                 {
                     new GParametrosBE() {pParName = "ID_USUARIO", pValue = pUsuarioBE.id_usuario, pTypeSQLServer = DbType.Decimal},
-                    new GParametrosBE() {pParName = "USUARIO", pValue = pUsuarioBE.usuario, pTypeSQLServer = DbType.String},
+                    //new GParametrosBE() {pParName = "USUARIO", pValue = pUsuarioBE.usuario, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "CLAVE", pValue = pUsuarioBE.clave, pTypeSQLServer = DbType.String},
                     new GParametrosBE() {pParName = "USUARIO_MODIFICACION", pValue = pUsuarioBE.usuario_modificacion, pTypeSQLServer = DbType.String}
                 };

@@ -17,7 +17,6 @@
 			percent: $target.data('percent') ? $target.data('percent') : DEFAULTS.percent,
 			duration: $target.data('duration') ? $target.data('duration') : DEFAULTS.duration
 			};
-			// console.log(opts);
 	
 			$target.append('<div class="background"></div><div class="rotate"></div><div class="left"></div><div class="right"></div><div class=""><span>' + opts.percent + '%</span></div>');
 	

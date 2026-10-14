@@ -10,12 +10,17 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
         $scope.oListaTipoDocumento = [];
         $scope.oListaEtapaSolicitud = [];
 
+        $scope.defaultBotonesGrilla = '<a class="edit""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>' +
+            '<a class="delete" > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>';
+
+
         $(document).ready(function () {
 
-            Call.Get($scope.GenericController + "/TipoUsuarioCombo", null, $scope.EstablecerTipoUsuario);
-            Call.Get($scope.GenericController + "/TipoDocumentoCombo", null, $scope.EstablecerTipoDocumento);           
+            Loading.LoadingShow("Buscando Datos, por favor espere!");
 
-            $scope.btnBuscar();
+            Call.Get($scope.NameController + "/Obtener", null, $scope.EstablecerUsuario);
+            Call.Get($scope.GenericController + "/TipoUsuarioCombo", null, $scope.EstablecerTipoUsuario);
+            Call.Get($scope.GenericController + "/TipoDocumentoCombo", null, $scope.EstablecerTipoDocumento);     
 
         });
 
@@ -27,6 +32,13 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
             Call.Get($scope.NameController + '/ListarBusqueda', null, $scope.EstablecerBusqueda);
 
         }     
+
+        $scope.EstablecerUsuario = function (response) {
+            if (response.i002_tipo_usuario == 4) {
+                $scope.defaultBotonesGrilla = $scope.defaultBotonesGrilla + '<a class="pass" ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="lock" class="lucide lucide-lock align-middle me-2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></a>'
+            }
+            $scope.btnBuscar();
+        }
 
         $scope.EstablecerTipoUsuario = function (response) {
 
@@ -69,8 +81,7 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
                         { data: 'flag_administrador' },
                         {
                             data: null,
-                            defaultContent: '<a class="edit""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>' +
-                                '<a class="delete" > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>'
+                            defaultContent: $scope.defaultBotonesGrilla
                         }
                     ]
                 });
@@ -81,16 +92,17 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
                     $scope.btnEditar(data);
                 });
 
-                /*$('#taUsuarios tbody').on('click', 'a.update', function () {
-                    var data = taUsuarios.row($(this).parents('tr')).data();
-                    Message.Confirm("Anular", "¿Desea Anular el usuario?", $scope.btnAnularSolicitud, null, data);
-
-                });*/
-
                 $('#taUsuarios tbody').on('click', 'a.delete', function () {
                     var data = taUsuarios.row($(this).parents('tr')).data();
                     Message.Confirm("Eliminar", "¿Desea eliminar el usuario?", $scope.btnEliminarUsuario, null, data);
                 });
+
+                $('#taUsuarios tbody').on('click', 'a.pass', function () {
+                    var data = taUsuarios.row($(this).parents('tr')).data();
+                    $scope.btnCambiarClave(data);
+                });
+
+                
 
             }
 
@@ -109,8 +121,11 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
             var vusuario = $scope.txtUsuario;
             var vclave = $scope.txtContrasenia;
             var vflag_activo = $scope.cbkActivo;
-            var vflag_administrador = $scope.cbkAdministrador;
+            var vflag_administrador = false;
 
+            if (vid_usuario == "") {
+                vid_usuario = 0;
+            }
 
             var oEntidad = {
                 id_usuario: vid_usuario,
@@ -135,13 +150,14 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
             $scope.id_usuario_sel = 0;
             $scope.vgTituloModal = "Registro de Nuevo Usuario";
             $scope.BloquearNuevo();
+            $scope.LimpiarDatos();
             $("#moEdit").modal('show');  
         }
 
         $scope.btnEditar = function (pData) {
 
             $scope.vgTituloModal = "Edición de Usuario";
-
+            $scope.LimpiarDatos();
             $scope.id_usuario_sel = pData.id_usuario;
             $scope.txtDocumento = pData.documento;
             $scope.txtNombres = pData.nombres;
@@ -152,19 +168,28 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
             $scope.cbkAdministrador = pData.flag_administrador;
 
             angular.forEach($scope.oListaTipoDocumento, function (item) {
-                if (item.id == pData.i002_tipo_documento) {
+                if (item.id == pData.i003_tipo_documento) {
                     $scope.ddlTipoDocumento = item;
                 }
             });
 
             angular.forEach($scope.oListaTipoUsuario, function (item) {
-                if (item.id == pData.i009_tipo_usuario) {
+                if (item.id == pData.i002_tipo_usuario) {
                     $scope.ddlTipoUsuario = item;
                 }
             });
 
             $("#moEdit").modal('show');
             $scope.BloquearEdicion();
+            $scope.$apply();
+        }
+
+        $scope.btnCambiarClave = function (pData) {
+
+            $scope.id_usuario_sel = pData.id_usuario;
+            $scope.txtContraseniaNuevaA = "";
+            $scope.txtContraseniaNuevaB = "";
+            $("#moCambiarPass").modal('show');
             $scope.$apply();
         }
 
@@ -227,7 +252,8 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
                     return "Debe ingresar un usuario!";
                 }
 
-                if (oEntidad.clave == undefined || oEntidad.clave.length < 10) {
+                var erroresClave = $scope.validarComplejidadPassword(oEntidad.clave);
+                if (!erroresClave.esValida) {
                     return "La contraseña no cumple con los requisitos mínimos!";
                 }
             }
@@ -237,7 +263,7 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
 
         $scope.btnGrabarUsuario = function (pEntidad) {
           
-            var parametros = {
+            var pUsuarioRQ = {
                 id_usuario: pEntidad.id_usuario,
                 id_tipo_documento: pEntidad.id_tipo_documento,
                 documento: pEntidad.documento,
@@ -247,19 +273,49 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
                 id_tipo_usuario: pEntidad.id_tipo_usuario,
                 usuario: pEntidad.usuario,
                 clave: pEntidad.clave,
-                flag_activo: pEntidad.flag_activo,
-                flag_administrador: pEntidad.flag_administrador
+                flag_activo: pEntidad.flag_activo
             };
 
             Loading.LoadingShow("Iniciando Sesión, por favor espere!");
 
             if ($scope.id_usuario_sel > 0) {
-                Call.PostAjax(false, $scope.NameController + '/Actualizar', parametros, $scope.RespuestaGuardarUsuario);
+                Call.PostAjax(false, $scope.NameController + '/Actualizar', pUsuarioRQ, $scope.RespuestaGuardarUsuario);
             } else {
-                Call.PostAjax(false, $scope.NameController + '/Registrar', parametros, $scope.RespuestaGuardarUsuario);
+                Call.PostAjax(false, $scope.NameController + '/Registrar', pUsuarioRQ, $scope.RespuestaGuardarUsuario);
+            }          
+
+        } 
+
+        $scope.btnGuardarPass = function () {
+            if ($scope.txtContraseniaNuevaA != $scope.txtContraseniaNuevaB) {
+                //$("#moCambiarPass").modal('hide');
+                Message.AlertError("Error", "Las contraseñas deben ser iguales!");
+                return;
             }
 
+            var erroresA = $scope.validarComplejidadPassword($scope.txtContraseniaNuevaA);
+            if (!erroresA.esValida) {
+                //$("#moCambiarPass").modal('hide');
+                Message.AlertError("Error", "La contraseña no cumple con los requisitos!");
+                return;
+            }
 
+            var erroresB = $scope.validarComplejidadPassword($scope.txtContraseniaNuevaB);
+            if (!erroresB.esValida) {
+                //$("#moCambiarPass").modal('hide');
+                Message.AlertError("Error", "La contraseña no cumple con los requisitos!");
+                return;
+            }
+
+            var parametros = {
+                id_usuario: $scope.id_usuario_sel,
+                clave: $scope.txtContraseniaNuevaA
+            };
+
+            Loading.LoadingShow("Guardando Datos, por favor espere!");
+
+            
+            Call.PostAjax(false, $scope.NameController + '/CambiarClave', parametros, $scope.RespuestaGuardarPass);
             
 
         } 
@@ -284,6 +340,16 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
                 $("#moEdit").modal('hide');                 
             } else {
                 Message.AlertError("Eliminar Erroneo", "Error al eliminar el usuario, vuelva a intentarlo");
+            }
+        }
+
+        $scope.RespuestaGuardarPass = function (response) {
+            if (response.st == 1) {
+                Message.AlertSuccess("Cambio de Clave", "Se actualizó la clave correctamente");
+                $scope.btnBuscar();
+                $("#moCambiarPass").modal('hide');
+            } else {
+                Message.AlertError("Cambio de Clave Erroneo", "Error al cambiar la clave del usuario, vuelva a intentarlo");
             }
         }
 
@@ -313,5 +379,50 @@ AppSIVAL.controller("BusquedaUsuarios", ['$scope','Validate', 'Message', 'MsgDat
             $scope.cbkAdministrador_Disabled = true;
         }
 
+        $scope.LimpiarDatos = function () {
+
+            $scope.id_usuario_sel = "";
+            $scope.txtDocumento = "";
+            $scope.txtNombres = "";
+            $scope.txtApellidoPaterno = "";
+            $scope.txtApellidoMaterno = "";
+            $scope.txtUsuario = "";
+            $scope.txtContrasenia="";
+            $scope.cbkActivo = false;
+            $scope.cbkAdministrador = false;
+
+            $scope.ddlTipoUsuario = $scope.oListaTipoUsuario[0];
+            $scope.ddlTipoDocumento = $scope.oListaTipoDocumento[0];
+        }
+
+        $scope.validarComplejidadPassword = function (password) {
+            const errores = [];
+
+            // 1. Longitud mínima (estándar: 8 caracteres)
+            if (password.length < 8) {
+                errores.push("Debe tener al menos 8 caracteres.");
+            }
+            // 2. Al menos una letra mayúscula
+            if (!/[A-Z]/.test(password)) {
+                errores.push("Debe incluir al menos una letra mayúscula (A-Z).");
+            }
+            // 3. Al menos una letra minúscula
+            if (!/[a-z]/.test(password)) {
+                errores.push("Debe incluir al menos una letra minúscula (a-z).");
+            }
+            // 4. Al menos un número
+            if (!/[0-9]/.test(password)) {
+                errores.push("Debe incluir al menos un número (0-9).");
+            }
+            // 5. Al menos un carácter especial
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                errores.push("Debe incluir al menos un carácter especial (ej. !@#$%).");
+            }
+
+            return {
+                esValida: errores.length === 0,
+                errores: errores
+            };
+        }
 
     }]);

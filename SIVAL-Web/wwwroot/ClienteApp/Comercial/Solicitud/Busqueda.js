@@ -232,9 +232,6 @@ AppSIVAL.controller("BusquedaSolicitudes", ['$scope', 'Message', 'MsgData', 'Cal
                         $scope.Departamento_Sel = "";
                         $scope.NroCreditos_Sel = "";
 
-                        console.log("Data Seleccionada");
-                        console.log(data);
-
                         // 1. Seleccionar el elemento HTML por su ID
                         const elementoOffcanvas = document.getElementById('panelDerecho');
 

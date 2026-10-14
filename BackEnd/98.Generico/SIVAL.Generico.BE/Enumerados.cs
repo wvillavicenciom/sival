@@ -27,5 +27,17 @@ namespace SIVAL.Generico.BE
             Genero = 7
         }
 
+        public enum TipoDocumento
+        {
+            DNI = 7,
+            CE = 8
+        }
+
+        public enum Genero
+        {
+            Masculino = 38,
+            Femenino = 39
+        }
+
     }
 }

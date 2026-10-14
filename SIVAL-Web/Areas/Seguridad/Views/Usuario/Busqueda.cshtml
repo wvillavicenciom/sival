@@ -189,8 +189,8 @@
                                     <span ng-show="frmUsuario.txtUsuario.$error.pattern" style="color:red">Usuario no válido!!</span>
                             </div>
                             <div class="mb-2 col-md-4">
-                                <label for="txtContrasenia" class="form-label">Constraseña</label>
-                                <input type="text" class="form-control" id="txtContrasenia" ng-model="txtContrasenia" ng-disabled="txtContrasenia_Disabled">
+                                <label for="txtContrasenia" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="txtContrasenia" ng-model="txtContrasenia" ng-disabled="txtContrasenia_Disabled">
                             </div>
                         </div>
 
@@ -211,8 +211,8 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" ng-click="btnCerrar()">Salir</button>
-                        <button type="submit" class="btn btn-primary" ng-click="btnGuardar()">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button type="button" class="btn btn-primary" ng-click="btnGuardar()">Guardar</button>
                     </div>                    
                 @*</form>*@
                 </form>
@@ -220,7 +220,38 @@
         </div>
     </div>
 
+    <!-- Modal Cambiar Clave-->
+    <div class="modal fade" id="moCambiarPass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form name="frmUsuario">
+                    @*<form>*@
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cambio de Contraseña</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">  
+                        <div class="row">
+                            <div class="mb-2 col-md-4">
+                                <label for="txtContraseniaNuevaA" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="txtContraseniaNuevaA" ng-model="txtContraseniaNuevaA" >
+                            </div>
+                            <div class="mb-2 col-md-4">
+                                <label for="txtContraseniaNuevaB" class="form-label">Repite Contraseña</label>
+                                <input type="password" class="form-control" id="txtContraseniaNuevaB" ng-model="txtContraseniaNuevaB">
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button type="button" class="btn btn-primary" ng-click="btnGuardarPass()">Guardar</button>
+                    </div>
+                    @*</form>*@
+                </form>
+            </div>
+        </div>
+    </div>
 
 </div>
 

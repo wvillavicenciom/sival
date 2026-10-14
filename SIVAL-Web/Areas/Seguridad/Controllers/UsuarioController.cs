@@ -43,14 +43,14 @@ namespace SIVAL_Web.Areas.Seguridad.Controllers
 
                 String pUsuario = HttpContext.Session.GetString("UserName");
 
-                oUsuarioBE.i002_tipo_documento = pUsuarioRQ.id_tipo_documento;
+                oUsuarioBE.i003_tipo_documento = pUsuarioRQ.id_tipo_documento;
                 oUsuarioBE.documento = pUsuarioRQ.documento;
                 oUsuarioBE.nombres = pUsuarioRQ.nombres;
                 oUsuarioBE.apellido_paterno = pUsuarioRQ.apellido_paterno;
                 oUsuarioBE.apellido_materno = pUsuarioRQ.apellido_materno;
                 oUsuarioBE.usuario = pUsuarioRQ.usuario;
                 oUsuarioBE.clave = pUsuarioRQ.clave;
-                oUsuarioBE.i009_tipo_usuario = pUsuarioRQ.id_tipo_usuario;
+                oUsuarioBE.i002_tipo_usuario = pUsuarioRQ.id_tipo_usuario;
                 oUsuarioBE.flag_administrador = pUsuarioRQ.flag_administrador;
                 oUsuarioBE.flag_activo = pUsuarioRQ.flag_activo;
                 oUsuarioBE.usuario_creacion = pUsuario;
@@ -81,12 +81,12 @@ namespace SIVAL_Web.Areas.Seguridad.Controllers
                 String pUsuario = HttpContext.Session.GetString("UserName");
 
                 oUsuarioBE.id_usuario = pUsuarioRQ.id_usuario;
-                oUsuarioBE.i002_tipo_documento = pUsuarioRQ.id_tipo_documento;
+                oUsuarioBE.i003_tipo_documento = pUsuarioRQ.id_tipo_documento;
                 oUsuarioBE.documento = pUsuarioRQ.documento;
                 oUsuarioBE.nombres = pUsuarioRQ.nombres;
                 oUsuarioBE.apellido_paterno = pUsuarioRQ.apellido_paterno;
                 oUsuarioBE.apellido_materno = pUsuarioRQ.apellido_materno;
-                oUsuarioBE.i009_tipo_usuario = pUsuarioRQ.id_tipo_usuario;
+                oUsuarioBE.i002_tipo_usuario = pUsuarioRQ.id_tipo_usuario;
                 oUsuarioBE.usuario = pUsuarioRQ.usuario;
                 //oUsuarioBE.clave = pUsuarioRQ.clave;
                 oUsuarioBE.flag_administrador = pUsuarioRQ.flag_administrador;
@@ -227,12 +227,12 @@ namespace SIVAL_Web.Areas.Seguridad.Controllers
                 UsuarioBE oUsuarioBE = new UsuarioBE();
 
                 oUsuarioBE.usuario = "";
-                oUsuarioBE.i002_tipo_documento = 0;
+                oUsuarioBE.i003_tipo_documento = 0;
                 oUsuarioBE.documento = "";
                 oUsuarioBE.nombres = "";
                 oUsuarioBE.apellido_paterno = "";
                 oUsuarioBE.apellido_materno = "";
-                oUsuarioBE.i009_tipo_usuario = 0;
+                oUsuarioBE.i002_tipo_usuario = 0;
 
                 oLista = oUsuarioSL.Listar(oUsuarioBE);
 
@@ -282,7 +282,7 @@ namespace SIVAL_Web.Areas.Seguridad.Controllers
                 String pUsuario = HttpContext.Session.GetString("UserName");
 
                 oUsuarioBE.id_usuario = pUsuarioRQ.id_usuario;
-                oUsuarioBE.usuario = pUsuarioRQ.usuario;
+                //oUsuarioBE.usuario = pUsuarioRQ.usuario;
                 oUsuarioBE.clave = pUsuarioRQ.clave;
                 oUsuarioBE.usuario_modificacion = pUsuario;
 

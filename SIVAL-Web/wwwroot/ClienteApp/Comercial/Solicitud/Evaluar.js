@@ -98,7 +98,7 @@ AppSIVAL.controller("Evaluar", ['$scope', 'Message', 'MsgData', 'Call', 'Moment'
             $("#dvSinEval").fadeIn();
             $("#dvResultado").hide();
 
-            $scope.HabilitarControles(true);
+            $scope.BloquearControles(false);
         });
 
         $scope.EstablecerTipoDocumento = function (response) {
@@ -205,8 +205,6 @@ AppSIVAL.controller("Evaluar", ['$scope', 'Message', 'MsgData', 'Call', 'Moment'
         }
 
         $scope.EstablecerEvaluar = function (response) {
-            console.log("ResultadoOOOOOO");
-            console.log(response);
             if (response != null) {
                 //Cuando se pre-aprobó
                 if (response.st == 1) {

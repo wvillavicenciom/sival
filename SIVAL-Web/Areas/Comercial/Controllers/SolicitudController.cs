@@ -102,6 +102,8 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                     String vToken = "";
                     RsExperianAuth oRsExperianAuth = oExperianWS.AutenticarAsync().Result;
                     String jsResultadoHistorico = "";
+                    String strErrorExperian = "";
+                    RsHistorial oRsHistorial = new RsHistorial();
                     String vTipoDocumentoExpe = "";
                     switch (pTipoDocumento)
                     {
@@ -122,23 +124,38 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                     if (oRsExperianAuth.expires_in != "0")
                     {
                         vToken = oRsExperianAuth.access_token;
-                        //jsResultadoHistorico = oExperianWS.ObtenerDatosAsync(vToken, vTipoDocumentoExpe, pDocumento).Result;
+                        oRsHistorial = oExperianWS.ObtenerDatosAsync(vToken, vTipoDocumentoExpe, pDocumento).Result;
+                        jsResultadoHistorico = oRsHistorial.result;
+                        strErrorExperian = oRsExperianAuth.msg;
+                    }
+                    else {
                         jsResultadoHistorico = "";
-                        oSolicitudBE.jsHistoricoExperian = jsResultadoHistorico;
-                        ResponseBE oResponseBE_CAL = new ResponseBE();
-                        oResponseBE_CAL = oSolicitudSL.CalcularEvaluacion(oSolicitudBE);
-                        if (oResponseBE_CAL.st == 1) {
-                            oResponseBE.msg = oResponseBE_CAL.msg;
-                            oResponseBE.dato_a = oResponseBE_CAL.dato_a;
-                            oResponseBE.dato_b = oResponseBE_CAL.dato_b;
-                        }
-                    }                    
+                        strErrorExperian = oRsExperianAuth.msg;
+                    }
+                    oSolicitudBE.jsHistoricoExperian = jsResultadoHistorico;
+                    oSolicitudBE.errorHistoricoExperian = strErrorExperian; ;
+                    ResponseBE oResponseBE_CAL = new ResponseBE();
+                    oResponseBE_CAL = oSolicitudSL.CalcularEvaluacion(oSolicitudBE);
+                    if (oResponseBE_CAL.st == 1)
+                    {
+                        oResponseBE.msg = oResponseBE_CAL.msg;
+                        oResponseBE.dato_a = oResponseBE_CAL.dato_a;
+                        oResponseBE.dato_b = oResponseBE_CAL.dato_b;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 //Manejando Errores
                 var error = ex.ToString();
+                LogBE oLogBE = new LogBE();
+                oLogBE.modulo = "Solicitud";
+                oLogBE.sub_modulo = "Solicitud";
+                oLogBE.opcion = "Nueva Solicitud";
+                oLogBE.tipo = 1;
+                oLogBE.error = "Error Método EvaluarFD";
+                oLogBE.descripcion = ex.ToString();
+                LogSL.Registrar(oLogBE);
             }
             var response = JsonConvert.SerializeObject(oResponseBE);
             return Content(response, "application/json");
@@ -184,19 +201,19 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                 oSolicitudBE.apellido_materno = pSolicitudRQ.apellido_materno;
                 oSolicitudBE.nombres = pSolicitudRQ.nombres;
                 oSolicitudBE.fecha_nacimiento = pSolicitudRQ.fecha_nacimiento;
-                oSolicitudBE.i003_categoria_laboral = pSolicitudRQ.id_categoria_laboral;
-                oSolicitudBE.mto_ingreso_bruto = pSolicitudRQ.mto_ingreso_bruto;
-                oSolicitudBE.fecha_ingreso_laboral = pSolicitudRQ.fecha_ingreso_laboral;
-                //oSolicitudBE.fecha_solicitud = pSolicitudRQ.fecha_solicitud;
-                oSolicitudBE.telefono = pSolicitudRQ.telefono;
-                oSolicitudBE.correo = pSolicitudRQ.correo;
-                oSolicitudBE.id_departamento = pSolicitudRQ.id_departamento;
-                oSolicitudBE.id_provincia = pSolicitudRQ.id_provincia;
-                oSolicitudBE.id_distrito = pSolicitudRQ.id_distrito;
-                oSolicitudBE.direccion = pSolicitudRQ.direccion;
-                oSolicitudBE.referencia = pSolicitudRQ.referencia;
-                oSolicitudBE.id_marca = pSolicitudRQ.id_marca;
-                oSolicitudBE.id_marca_modelo = pSolicitudRQ.id_marca_modelo;
+                //oSolicitudBE.i003_categoria_laboral = pSolicitudRQ.id_categoria_laboral;
+                //oSolicitudBE.mto_ingreso_bruto = pSolicitudRQ.mto_ingreso_bruto;
+                //oSolicitudBE.fecha_ingreso_laboral = pSolicitudRQ.fecha_ingreso_laboral;
+                ////oSolicitudBE.fecha_solicitud = pSolicitudRQ.fecha_solicitud;
+                //oSolicitudBE.telefono = pSolicitudRQ.telefono;
+                //oSolicitudBE.correo = pSolicitudRQ.correo;
+                //oSolicitudBE.id_departamento = pSolicitudRQ.id_departamento;
+                //oSolicitudBE.id_provincia = pSolicitudRQ.id_provincia;
+                //oSolicitudBE.id_distrito = pSolicitudRQ.id_distrito;
+                //oSolicitudBE.direccion = pSolicitudRQ.direccion;
+                //oSolicitudBE.referencia = pSolicitudRQ.referencia;
+                //oSolicitudBE.id_marca = pSolicitudRQ.id_marca;
+                //oSolicitudBE.id_marca_modelo = pSolicitudRQ.id_marca_modelo;
                 oSolicitudBE.usuario_modificacion = pUsuaio;
 
 
@@ -282,10 +299,10 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                 String pUsuaio = HttpContext.Session.GetString("UserName");
 
                 oSolicitudBE.id_solicitud = pSolicitudRQ.id_solicitud;
-                oSolicitudBE.mto_precio_bien = pSolicitudRQ.mto_precio_bien;
-                oSolicitudBE.mto_inicial_bien = pSolicitudRQ.mto_inicial_bien;
-                oSolicitudBE.i008_seguro_bien = pSolicitudRQ.id_seguro_bien;
-                oSolicitudBE.porc_seguro_bien = pSolicitudRQ.porc_seguro_bien;
+                //oSolicitudBE.mto_precio_bien = pSolicitudRQ.mto_precio_bien;
+                //oSolicitudBE.mto_inicial_bien = pSolicitudRQ.mto_inicial_bien;
+                //oSolicitudBE.i008_seguro_bien = pSolicitudRQ.id_seguro_bien;
+                //oSolicitudBE.porc_seguro_bien = pSolicitudRQ.porc_seguro_bien;
                 oSolicitudBE.usuario_modificacion = pUsuaio;
 
 
@@ -366,9 +383,9 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                 String pUsuaio = HttpContext.Session.GetString("UserName");
 
                 oSolicitudBE.id_solicitud = pSolicitudRQ.id_solicitud;
-                oSolicitudBE.i004_resultado_eval_validador = pSolicitudRQ.id_resultado_validacion;
-                oSolicitudBE.i005_motivo_eval_validador = pSolicitudRQ.id_motivo_validacion;
-                oSolicitudBE.comentario_eval_validador = pSolicitudRQ.comentario_validacion;
+                //oSolicitudBE.i004_resultado_eval_validador = pSolicitudRQ.id_resultado_validacion;
+                //oSolicitudBE.i005_motivo_eval_validador = pSolicitudRQ.id_motivo_validacion;
+                //oSolicitudBE.comentario_eval_validador = pSolicitudRQ.comentario_validacion;
                 oSolicitudBE.usuario_modificacion = pUsuaio;
 
 
@@ -397,9 +414,9 @@ namespace SIVAL_Web.Areas.Comercial.Controllers
                 String pUsuaio = HttpContext.Session.GetString("UserName");
 
                 oSolicitudBE.id_solicitud = pSolicitudRQ.id_solicitud;
-                oSolicitudBE.i004_resultado_eval_analista = pSolicitudRQ.id_resultado_evaluacion;
-                oSolicitudBE.i005_motivo_eval_analista = pSolicitudRQ.id_motivo_evaluacion;
-                oSolicitudBE.comentario_eval_analista = pSolicitudRQ.comentario_evaluacion;
+                //oSolicitudBE.i004_resultado_eval_analista = pSolicitudRQ.id_resultado_evaluacion;
+                //oSolicitudBE.i005_motivo_eval_analista = pSolicitudRQ.id_motivo_evaluacion;
+                //oSolicitudBE.comentario_eval_analista = pSolicitudRQ.comentario_evaluacion;
                 oSolicitudBE.usuario_modificacion = pUsuaio;
 
 

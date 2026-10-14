@@ -85,9 +85,6 @@ AppSIVAL.controller("BusquedaSolicitudes", ['$scope', 'Message', 'MsgData', 'Cal
 
         $scope.EstablecerBusqueda = function (response) {
 
-            //console.log("Datos Encontrados");
-            //console.log(response);
-
 
             var taSolicitudes;
 

@@ -18,29 +18,13 @@ AppSIVAL.controller("Login", ['$scope', 'Message', 'MsgData', 'Call', 'Moment', 
         $scope.title_form = "Login";
         $scope.rbtPlan = 0;
 
-        $(document).ready(function () {
-         
+        $(document).ready(function () {         
 
         });
 
+        //$scope.txtUsuario = "ADM-GLOBAL";
+        //$scope.txtClave = "ADM-GLOBAL";
 
-        $scope.txtUsuario = "ADM-GLOBAL";
-        $scope.txtClave = "ADM-GLOBAL";
-
-        //$scope.txtUsuario = "ejecutivo";
-        //$scope.txtClave = "ejecutivo@1301";
-
-        //$scope.txtUsuario = "validador";
-        //$scope.txtClave = "validador@1301";
-
-        //$scope.txtUsuario = "analista";
-        //$scope.txtClave = "analista@1301";
-
-        //obteniendo el tamaño del div del contenedor
-        var vHeigth = $('body').height(); //del tamaño que ocupa el menu y las detalles
-        var vHeigthHeader = $('#header-main').height();
-        var vHeigthNavBar = $('#navbar-main').height();
-        var total = vHeigth - vHeigthHeader - vHeigthNavBar - 40;
 
         $scope.btnIngresar = function () {             
           

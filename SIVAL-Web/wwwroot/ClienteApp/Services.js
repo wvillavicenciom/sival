@@ -98,8 +98,6 @@ AppSIVAL.service('Moment', function () {
             return false;
         }
         var m = moment(strFecha, 'DD/MM/YYYY', true);
-        console.log(m);
-        console.log(m.isValid());
         return m.isValid();
     }
 
@@ -130,10 +128,7 @@ AppSIVAL.service('Moment', function () {
             return null;
         } else {
             var fecha = moment(value, format);
-            //var strFecha = fecha.format(format);
             if (fecha.isValid()) {
-                console.log("Fecha Válida")
-                console.log(fecha);
                 return fecha;
             } else {
                 return null;

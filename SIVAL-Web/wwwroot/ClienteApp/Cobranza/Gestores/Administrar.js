@@ -160,7 +160,6 @@ AppCollFly.controller("AdministrarGestores", ['$scope', 'Message', 'MsgData', 'C
                 activo : vActivo
             }
 
-            console.log(oEntidad);
 
             return oEntidad;
 
@@ -238,8 +237,6 @@ AppCollFly.controller("AdministrarGestores", ['$scope', 'Message', 'MsgData', 'C
 
                 $('#taGestores tbody').on('click', 'a', function () {
                     var data = taGestores.row($(this).parents('tr')).data();
-                    console.log("data");
-                    console.log(data);
                     $scope.MostrarEditarGestor(data);
                     $("#moGestores").modal('show');
 
